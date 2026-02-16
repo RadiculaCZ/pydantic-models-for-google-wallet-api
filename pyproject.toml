@@ -1,0 +1,27 @@
+[project]
+name = "pydantic-models-for-google-wallet-api"
+version = "0.1.0"
+description = "Pydantic models for Google Wallet API types"
+readme = "README.md"
+authors = [
+    { name = "Radicula s.r.o." }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.12.5",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.28,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.black]
+line-length = 79
+verbose = true
+
+[tool.isort]
+profile = 'black'
+verbose = false
+line_length = 79
+multi_line_output = 3
+include_trailing_comma = true
