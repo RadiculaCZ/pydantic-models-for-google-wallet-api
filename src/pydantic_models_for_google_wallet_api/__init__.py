@@ -41,6 +41,23 @@ from .event_ticket_object import (
     EventSeat,
     EventTicketObject,
 )
+from .flight_class import (
+    AirportInfo,
+    BoardingAndSeatingPolicy,
+    BoardingPolicy,
+    FlightCarrier,
+    FlightClass,
+    FlightHeader,
+    FlightStatus,
+    SeatClassPolicy,
+)
+from .flight_object import (
+    BoardingAndSeatingInfo,
+    BoardingDoor,
+    FlightObject,
+    FrequentFlyerInfo,
+    ReservationInfo,
+)
 from .generic_class import GenericClass
 from .generic_object import (
     ExpiryNotification,
