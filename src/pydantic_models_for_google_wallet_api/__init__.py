@@ -66,6 +66,8 @@ from .generic_object import (
     Notifications,
     UpcomingNotification,
 )
+from .gift_card_class import GiftCardClass
+from .gift_card_object import GiftCardObject
 from .grouping_info import GroupingInfo
 from .image import Image, ImageUri
 from .image_module_data import ImageModuleData
