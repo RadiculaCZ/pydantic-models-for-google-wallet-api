@@ -79,6 +79,7 @@ from .issuer import (
     SmartTapMerchantData,
 )
 from .jwt import JWT, GoogleWalletApiJWT, JwtPayload
+from .jwt_resource import JwtResource
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
 from .localized_string import LocalizedString, TranslatedString
