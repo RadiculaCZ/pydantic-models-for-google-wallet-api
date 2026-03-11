@@ -72,6 +72,12 @@ from .grouping_info import GroupingInfo
 from .image import Image, ImageUri
 from .image_module_data import ImageModuleData
 from .info_module_data import InfoModuleData, LabelValue, LabelValueRow
+from .issuer import (
+    AuthenticationKey,
+    Issuer,
+    IssuerContactInfo,
+    SmartTapMerchantData,
+)
 from .jwt import JWT, GoogleWalletApiJWT, JwtPayload
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
