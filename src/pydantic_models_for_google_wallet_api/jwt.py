@@ -90,7 +90,7 @@ class JWT(BaseModel):
     Issued at time in seconds since epoch.
     """
 
-    payload: str
+    payload: JwtPayload
     """
     Payload object.
     """
