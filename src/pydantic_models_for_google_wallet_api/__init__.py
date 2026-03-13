@@ -83,6 +83,15 @@ from .jwt_resource import JwtResource
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
 from .localized_string import LocalizedString, TranslatedString
+from .loyalty_class import (
+    DiscoverableProgram,
+    DiscoverableProgramMerchantSigninInfo,
+    DiscoverableProgramMerchantSignupInfo,
+    LoyaltyClass,
+    SharedDataType,
+)
+from .loyalty_class import State as DiscoverableProgramState
+from .loyalty_object import LoyaltyObject, LoyaltyPoints, LoyaltyPointsBalance
 from .merchant_location import MerchantLocation
 from .message import Message, MessageType
 from .money import Money
