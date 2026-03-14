@@ -1,4 +1,5 @@
 # https://developers.google.com/wallet/reference/rest/v1/transitobject
+
 from enum import Enum
 from typing import Annotated, Optional
 
