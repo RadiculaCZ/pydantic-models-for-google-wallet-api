@@ -99,12 +99,15 @@ from .multiple_devices_and_holders_allowed_status import (
     MultipleDevicesAndHoldersAllowedStatus,
 )
 from .notification_settings_for_updates import NotificationSettingsForUpdates
+from .offer_class import OfferClass, RedemptionChannel
+from .offer_object import OfferObject
 from .pagination import Pagination
 from .pass_constraints import (
     NfcConstraint,
     PassConstraints,
     ScreenshotEligibility,
 )
+from .permissions import Permission, Permissions, Role
 from .review import Review
 from .review_status import ReviewStatus
 from .rotating_barcode import (
@@ -116,9 +119,29 @@ from .rotating_barcode import (
 )
 from .save_restrictions import SaveRestrictions
 from .security_animation import AnimationType, SecurityAnimation
+from .smart_tap import Action, IssuerToUserInfo, SignUpInfo, SmartTap
 from .state import State
 from .text_module_data import TextModuleData
 from .time_interval import TimeInterval
+from .transit_class import ActivationOptions, TransitClass, TransitType
+from .transit_object import (
+    ActivationStatus,
+    ConcessionCategory,
+    DeviceContext,
+    FareClass,
+    PassengerType,
+    PurchaseDetails,
+)
+from .transit_object import State as ActivationState
+from .transit_object import (
+    TicketCost,
+    TicketLeg,
+    TicketRestrictions,
+    TicketSeat,
+    TicketStatus,
+    TransitObject,
+    TripType,
+)
 from .uri import Uri
 from .value_added_module_data import (
     ModuleViewConstraints,
