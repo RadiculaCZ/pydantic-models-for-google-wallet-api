@@ -7,9 +7,15 @@ authors = [
     { name = "Radicula s.r.o." }
 ]
 requires-python = ">=3.12"
+license = "ISC"
+license-files = ["LICENSE"]
 dependencies = [
     "pydantic>=2.12.5",
 ]
+
+[project.urls]
+Homepage = "https://github.com/RadiculaCZ/pydantic-models-for-google-wallet-api"
+Issues = "https://github.com/RadiculaCZ/pydantic-models-for-google-wallet-api/issues"
 
 [build-system]
 requires = ["uv_build>=0.9.28,<0.10.0"]
