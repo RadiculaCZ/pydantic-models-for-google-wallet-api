@@ -97,7 +97,7 @@ class Blobstore2Info(BaseModel):
     Bigstore, and is not applicable to non-GCS media uploads.
     """
 
-    blobGeneration: Optional[str] = None
+    blobGeneration: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -184,7 +184,7 @@ class ObjectId(BaseModel):
     The name of the object.
     """
 
-    generation: Optional[str] = None
+    generation: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -202,7 +202,7 @@ class CompositeMedia(BaseModel):
     http://go/bigstore-composites.
     """
 
-    crc32cHash: Optional[int] = None
+    crc32cHash: Optional[int] = Field(None, ge=0, le=2**32 - 1)
     """
     (format: uint32)
 
@@ -255,7 +255,7 @@ class CompositeMedia(BaseModel):
     Media data, set if reference_type is INLINE
     """
 
-    length: Optional[str] = None
+    length: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -399,7 +399,7 @@ class DiffVersionResponse(BaseModel):
     Diff protocol, visit http://go/scotty-diff-protocol.
     """
 
-    objectSizeBytes: Optional[str] = None
+    objectSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -418,7 +418,7 @@ class DiffChecksumsResponse(BaseModel):
     Scotty Diff protocol, visit http://go/scotty-diff-protocol.
     """
 
-    objectSizeBytes: Optional[str] = None
+    objectSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -439,7 +439,7 @@ class DiffChecksumsResponse(BaseModel):
     The object version of the object the checksums are being returned for.
     """
 
-    chunkSizeBytes: Optional[str] = None
+    chunkSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -491,7 +491,7 @@ class Media(BaseModel):
     including the actual type of this field.
     """
 
-    length: Optional[str] = Field(None, pattern=r"^\d+$")
+    length: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
     (format: int64)
 
@@ -628,7 +628,7 @@ class Media(BaseModel):
     be represented in this field as v1 BlobRef.
     """
 
-    crc32cHash: Optional[int] = None
+    crc32cHash: Optional[int] = Field(None, ge=0, le=2**32 - 1)
     """
     (format: uint32)
 
