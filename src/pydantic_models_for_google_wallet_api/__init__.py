@@ -79,7 +79,7 @@ from .issuer import (
     SmartTapMerchantData,
 )
 from .jwt import JWT, GoogleWalletApiJWT, JwtPayload
-from .jwt_resource import JwtResource
+from .jwt_resource import JwtResource, JwtResourceInsertResponse, Resources
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
 from .localized_string import LocalizedString, TranslatedString
@@ -94,6 +94,25 @@ from .loyalty_class import State as DiscoverableProgramState
 from .loyalty_object import LoyaltyObject, LoyaltyPoints, LoyaltyPointsBalance
 from .merchant_location import MerchantLocation
 from .message import Message, MessageType
+from .modify_linked_offer_objects_request import (
+    ModifyLinkedOfferObjects,
+    ModifyLinkedOfferObjectsRequest,
+)
+from .media import (
+    MediaReferenceType,
+    Blobstore2Info,
+    CompositeMediaReferenceType,
+    ObjectId,
+    CompositeMedia,
+    DiffUploadRequest,
+    DiffUploadResponse,
+    ContentTypeInfo,
+    DownloadParameters,
+    DiffVersionResponse,
+    DiffChecksumsResponse,
+    DiffDownloadResponse,
+    Media,
+)
 from .money import Money
 from .multiple_devices_and_holders_allowed_status import (
     MultipleDevicesAndHoldersAllowedStatus,
@@ -108,6 +127,9 @@ from .pass_constraints import (
     ScreenshotEligibility,
 )
 from .permissions import Permission, Permissions, Role
+from .private_content import SetPassUpdateNoticeRequest
+from .resource_listing import ResourceListing, ResourcePaginatedListing
+from .resource_wrapper import ResourceWrapper
 from .review import Review
 from .review_status import ReviewStatus
 from .rotating_barcode import (
@@ -131,9 +153,6 @@ from .transit_object import (
     FareClass,
     PassengerType,
     PurchaseDetails,
-)
-from .transit_object import State as ActivationState
-from .transit_object import (
     TicketCost,
     TicketLeg,
     TicketRestrictions,
@@ -142,6 +161,7 @@ from .transit_object import (
     TransitObject,
     TripType,
 )
+from .transit_object import State as ActivationState
 from .uri import Uri
 from .value_added_module_data import (
     ModuleViewConstraints,
@@ -225,6 +245,8 @@ __all__ = [
     "GoogleWalletApiJWT",
     "JwtPayload",
     "JwtResource",
+    "JwtResourceInsertResponse",
+    "Resources",
     "LatLongPoint",
     "LinksModuleData",
     "LocalizedString",
@@ -241,6 +263,21 @@ __all__ = [
     "MerchantLocation",
     "Message",
     "MessageType",
+    "ModifyLinkedOfferObjects",
+    "ModifyLinkedOfferObjectsRequest",
+    "MediaReferenceType",
+    "Blobstore2Info",
+    "CompositeMediaReferenceType",
+    "ObjectId",
+    "CompositeMedia",
+    "DiffUploadRequest",
+    "DiffUploadResponse",
+    "ContentTypeInfo",
+    "DownloadParameters",
+    "DiffVersionResponse",
+    "DiffChecksumsResponse",
+    "DiffDownloadResponse",
+    "Media",
     "Money",
     "MultipleDevicesAndHoldersAllowedStatus",
     "NotificationSettingsForUpdates",
@@ -254,6 +291,10 @@ __all__ = [
     "Permission",
     "Permissions",
     "Role",
+    "SetPassUpdateNoticeRequest",
+    "ResourceListing",
+    "ResourcePaginatedListing",
+    "ResourceWrapper",
     "Review",
     "ReviewStatus",
     "RotatingBarcode",

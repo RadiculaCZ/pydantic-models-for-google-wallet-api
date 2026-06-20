@@ -4,64 +4,77 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from .event_ticket_class import EventTicketClass
+from .event_ticket_object import EventTicketObject
+from .flight_class import FlightClass
+from .flight_object import FlightObject
+from .gift_card_class import GiftCardClass
+from .gift_card_object import GiftCardObject
+from .loyalty_class import LoyaltyClass
+from .loyalty_object import LoyaltyObject
+from .offer_class import OfferClass
+from .offer_object import OfferObject
+from .transit_class import TransitClass
+from .transit_object import TransitObject
+
 
 class JwtPayload(BaseModel):
-    eventTicketClasses: Optional[list] = None
+    eventTicketClasses: Optional[list[EventTicketClass]] = None
     """
     Event Ticket Class to save.
     """
 
-    eventTicketObjects: Optional[list] = None
+    eventTicketObjects: Optional[list[EventTicketObject]] = None
     """
     Event Ticket Object to save.
     """
 
-    flightClasses: Optional[list] = None
+    flightClasses: Optional[list[FlightClass]] = None
     """
     Flight Class to save.
     """
 
-    flightObjects: Optional[list] = None
+    flightObjects: Optional[list[FlightObject]] = None
     """
     Flight Object to save.
     """
 
-    giftCardClasses: Optional[list] = None
+    giftCardClasses: Optional[list[GiftCardClass]] = None
     """
     Gift Card Class to save.
     """
 
-    giftCardObjects: Optional[list] = None
+    giftCardObjects: Optional[list[GiftCardObject]] = None
     """
     Gift Card Object to save.
     """
 
-    loyaltyClasses: Optional[list] = None
+    loyaltyClasses: Optional[list[LoyaltyClass]] = None
     """
     Loyalty Class to save.
     """
 
-    loyaltyObjects: Optional[list] = None
+    loyaltyObjects: Optional[list[LoyaltyObject]] = None
     """
     Loyalty Object to save.
     """
 
-    offerClasses: Optional[list] = None
+    offerClasses: Optional[list[OfferClass]] = None
     """
     Offer Class to save.
     """
 
-    offerObjects: Optional[list] = None
+    offerObjects: Optional[list[OfferObject]] = None
     """
     Offer Object to save.
     """
 
-    transitClasses: Optional[list] = None
+    transitClasses: Optional[list[TransitClass]] = None
     """
     Transit Class to save.
     """
 
-    transitObjects: Optional[list] = None
+    transitObjects: Optional[list[TransitObject]] = None
     """
     Transit Object to save.
     """
