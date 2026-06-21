@@ -3,7 +3,7 @@
 from enum import Enum
 
 
-class State(Enum):
+class State(str, Enum):
     STATE_UNSPECIFIED = "STATE_UNSPECIFIED"
 
     ACTIVE = "ACTIVE"
