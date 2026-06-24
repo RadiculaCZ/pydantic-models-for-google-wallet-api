@@ -19,7 +19,7 @@ class TotpAlgorithm(str, Enum):
     """
 
 
-class TotpParameters(BaseModel):
+class RotatingBarcodeTotpDetailsTotpParameters(BaseModel):
     """
     Configuration for the key and value length. See
     https://www.rfc-editor.org/rfc/rfc4226#section-5.3
@@ -37,7 +37,7 @@ class TotpParameters(BaseModel):
     """
 
 
-class TotpDetails(BaseModel):
+class RotatingBarcodeTotpDetails(BaseModel):
     """
     Configuration for the time-based OTP substitutions. See
     https://tools.ietf.org/html/rfc6238
@@ -55,10 +55,11 @@ class TotpDetails(BaseModel):
     The TOTP algorithm used to generate the OTP.
     """
 
-    parameters: list[TotpParameters] = []
+    parameters: list[RotatingBarcodeTotpDetailsTotpParameters] = []
     """
     The TOTP parameters for each of the {totp_value_*} substitutions. The
-    TotpParameters at index n is used for the {totp_value_n} substitution.
+    RotatingBarcodeTotpDetailsTotpParameters at index n is used for the
+    {totp_value_n} substitution.
     """
 
 
@@ -130,7 +131,7 @@ class RotatingBarcode(BaseModel):
       epoch) at which the barcode was generated.
     """
 
-    totpDetails: TotpDetails
+    totpDetails: RotatingBarcodeTotpDetails
     """
     Details used to evaluate the {totp_value_n} substitutions.
     """

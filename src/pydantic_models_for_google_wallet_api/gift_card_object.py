@@ -102,7 +102,7 @@ class GiftCardObject(BaseModel):
     Deprecated
     """
 
-    state: State = State.STATE_UNSPECIFIED
+    state: State
     """
     Required. The state of the object. This field is used to determine how an
     object is displayed in the app. For example, an inactive object is moved to

@@ -10,7 +10,7 @@ from .localized_string import LocalizedString
 from .uri import Uri
 
 
-class AppTarget(BaseModel):
+class AppLinkDataAppLinkInfoAppTarget(BaseModel):
     """
     Union field target.
 
@@ -29,10 +29,10 @@ class AppTarget(BaseModel):
     """
 
 
-class AppLinkInfo(BaseModel):
-    appLogoImage: Annotated[
-        Optional[Image], deprecated("This item is deprecated!")
-    ] = None
+class AppLinkDataAppLinkInfo(BaseModel):
+    appLogoImage: Annotated[Optional[Image], deprecated("This item is deprecated!")] = (
+        None
+    )
     """
     Deprecated. Image isn't supported in the app link module.
     """
@@ -51,7 +51,7 @@ class AppLinkInfo(BaseModel):
     Deprecated. Description isn't supported in the app link module.
     """
 
-    appTarget: AppTarget
+    appTarget: AppLinkDataAppLinkInfoAppTarget
     """
     Target to follow when opening the app link on clients. It will be used by
     partners to open their app or webpage.
@@ -59,20 +59,20 @@ class AppLinkInfo(BaseModel):
 
 
 class AppLinkData(BaseModel):
-    androidAppLinkInfo: Optional[AppLinkInfo] = None
+    androidAppLinkInfo: Optional[AppLinkDataAppLinkInfo] = None
     """
     Optional information about the partner app link.
     """
 
     iosAppLinkInfo: Annotated[
-        Optional[AppLinkInfo],
+        Optional[AppLinkDataAppLinkInfo],
         deprecated("This item is deprecated!"),
     ] = None
     """
     Deprecated. Links to open iOS apps are not supported.
     """
 
-    webAppLinkInfo: Optional[AppLinkInfo] = None
+    webAppLinkInfo: Optional[AppLinkDataAppLinkInfo] = None
     """
     Optional information about the partner web link.
     """

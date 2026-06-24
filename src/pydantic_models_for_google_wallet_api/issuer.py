@@ -32,6 +32,8 @@ class IssuerContactInfo(BaseModel):
 class AuthenticationKey(BaseModel):
     id: Optional[int] = None
     """
+    int32 format
+
     Available only to Smart Tap enabled partners. Contact support for
     additional guidance.
     """
@@ -92,4 +94,15 @@ class Issuer(BaseModel):
     callbackOptions: Optional[CallbackOptions] = None
     """
     Allows the issuer to provide their callback settings.
+    """
+
+
+class IssuerListResponse(BaseModel):
+    """
+    Generic listing of resources returned by the Google Wallet API.
+    """
+
+    resources: list[Issuer]
+    """
+    Resources corresponding to the list request.
     """

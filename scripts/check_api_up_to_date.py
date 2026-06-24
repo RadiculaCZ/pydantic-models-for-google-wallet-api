@@ -461,7 +461,7 @@ def compare(
             if model.name in {
                 "ResourceListing",
                 "ResourcePaginatedListing",
-                "ResourceWrapper",
+                "ResourceResponse",
             } and field_name in {"resources", "resource"}:
                 ok, reason = True, ""
             else:

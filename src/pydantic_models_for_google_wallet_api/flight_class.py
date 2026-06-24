@@ -328,13 +328,13 @@ class BoardingAndSeatingPolicy(BaseModel):
     `"walletobjects#boardingAndSeatingPolicy"`.
     """
 
-    boardingPolicy: BoardingPolicy
+    boardingPolicy: BoardingPolicy = BoardingPolicy.zoneBased
     """
     Indicates the policy the airline uses for boarding. If unset, Google will
     default to `zoneBased`.
     """
 
-    seatClassPolicy: SeatClassPolicy
+    seatClassPolicy: SeatClassPolicy = SeatClassPolicy.cabinBased
     """
     Seating policy which dictates how we display the seat class. If unset,
     Google will default to `cabinBased`.
@@ -595,9 +595,9 @@ class FlightClass(BaseModel):
     """
 
     infoModuleData: Annotated[
-        list[InfoModuleData],
+        Optional[InfoModuleData],
         deprecated("This item is deprecated!"),
-    ] = Field(default_factory=list)
+    ] = None
     """
     Deprecated. Use textModulesData instead.
     """
@@ -676,9 +676,9 @@ class FlightClass(BaseModel):
     characters to ensure full string is displayed on smaller screens.
     """
 
-    multipleDevicesAndHoldersAllowedStatus: (
-        MultipleDevicesAndHoldersAllowedStatus
-    ) = MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    multipleDevicesAndHoldersAllowedStatus: MultipleDevicesAndHoldersAllowedStatus = (
+        MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    )
     """
     Identifies whether multiple users and devices will save the same object
     referencing this class.

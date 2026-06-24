@@ -99,7 +99,7 @@ class Blobstore2Info(BaseModel):
 
     blobGeneration: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     The blob generation id.
     """
@@ -186,7 +186,7 @@ class ObjectId(BaseModel):
 
     generation: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     Generation of the object. Generations are monotonically increasing across
     writes, allowing them to be be compared to determine which generation is
@@ -204,7 +204,7 @@ class CompositeMedia(BaseModel):
 
     crc32cHash: Optional[int] = Field(None, ge=0, le=2**32 - 1)
     """
-    (format: uint32)
+    uint32 format
 
     crc32.c hash for the payload.
     """
@@ -257,7 +257,7 @@ class CompositeMedia(BaseModel):
 
     length: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     Size of the data, in bytes
     """
@@ -401,7 +401,7 @@ class DiffVersionResponse(BaseModel):
 
     objectSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     The total size of the server object.
     """
@@ -420,7 +420,7 @@ class DiffChecksumsResponse(BaseModel):
 
     objectSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     The total size of the server object.
     """
@@ -441,7 +441,7 @@ class DiffChecksumsResponse(BaseModel):
 
     chunkSizeBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     The chunk size of checksums. Must be a multiple of 256KB.
     """
@@ -462,6 +462,124 @@ class DiffDownloadResponse(BaseModel):
     objectLocation: Optional[CompositeMedia] = None
     """
     The original object location.
+    """
+
+
+class MediaRequestInfoNotificationType(str, Enum):
+    START = "START"
+    """
+    Such requests signals the start of a request containing media upload. Only
+    the media field(s) in the inserted/updated resource are set. The response
+    should either return an error or succeed. On success, responses don't need
+    to contain anything.
+    """
+
+    PROGRESS = "PROGRESS"
+    """
+    Such requests signals that the upload has progressed and that the backend
+    might want to access the media file specified in relevant fields in the
+    resource. Only the media field(s) in the inserted/updated resource are set.
+    The response should either return an error or succeed. On success,
+    responses don't need to contain anything.
+    """
+
+    END = "END"
+    """
+    Such requests signals the end of a request containing media upload. END
+    should be handled just like normal Insert/Upload requests, that is, they
+    should process the request and return a complete resource in the response.
+    Pointers to media data (a GFS path usually) appear in the relevant fields
+    in the inserted/updated resource. See gdata.Media in data.proto.
+    """
+
+    RESPONSE_SENT = "RESPONSE_SENT"
+    """
+    Such requests occur after an END and signal that the response has been sent
+    back to the client. RESPONSE_SENT is only sent to the backend if it is
+    configured to receive them. The response does not need to contain anything.
+    """
+
+    ERROR = "ERROR"
+    """
+    Such requests indicate that an error occurred while processing the request.
+    ERROR is only sent to the backend if it is configured to receive them. It
+    is not guaranteed that all errors will result in this notification to the
+    backend, even if the backend requests them. Since these requests are just
+    for informational purposes, the response does not need to contain anything.
+    """
+
+
+class MediaRequestInfo(BaseModel):
+    """
+    Extra information added to operations that support Scotty media requests.
+    """
+
+    notificationType: MediaRequestInfoNotificationType
+    """
+    The type of notification received from Scotty.
+    """
+
+    requestReceivedParamsServingInfo: Optional[bytes] = None
+    """
+    The partition of the Scotty server handling this request. type is
+    uploader_service.RequestReceivedParamsServingInfo
+    LINT.IfChange(request_received_params_serving_info_annotations)
+    LINT.ThenChange()
+    """
+
+    currentBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
+    """
+    int64 format
+
+    The number of current bytes uploaded or downloaded.
+    """
+
+    physicalHeaders: Optional[bytes] = None
+    """
+    The physical headers provided by RequestReceivedParameters in Scotty
+    request. type is uploader_service.KeyValuePairs.
+    """
+
+    requestId: Optional[str] = None
+    """
+    The Scotty request ID.
+    """
+
+    totalBytes: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
+    """
+    int64 format
+
+    The total size of the file.
+    """
+
+    customData: Optional[str] = None
+    """
+    Data to be copied to backend requests. Custom data is returned to Scotty in
+    the agent_state field, which Scotty will then provide in subsequent upload
+    notifications.
+    """
+
+    totalBytesIsEstimated: Optional[bool] = None
+    """
+    Whether the total bytes field contains an estimated data.
+    """
+
+    diffObjectVersion: Optional[str] = None
+    """
+    Set if the http request info is diff encoded. The value of this field is
+    the version number of the base revision. This is corresponding to Apiary's
+    mediaDiffObjectVersion
+    (//depot/google3/java/com/google/api/server/media/variable/DiffObjectVersionVariable.java).
+    See go/esf-scotty-diff-upload for more information.
+    """
+
+    finalStatus: Optional[int] = None
+    """
+    int32 format
+
+    The existence of the final_status field indicates that this is the last
+    call to the agent for this request_id.
+    http://google3/uploader/agent/scotty_agent.proto?l=737&rcl=347601929
     """
 
 
@@ -493,7 +611,7 @@ class Media(BaseModel):
 
     length: Optional[str] = Field(None, pattern=r"^[+-]?\d+$")
     """
-    (format: int64)
+    int64 format
 
     Size of the data, in bytes
     """
@@ -579,7 +697,7 @@ class Media(BaseModel):
 
     timestamp: Optional[str] = Field(None, pattern=r"^\d+$")
     """
-    (format: uint64)
+    uint64 format
 
     Time at which the media data was last updated, in milliseconds since UNIX
     epoch
@@ -630,7 +748,7 @@ class Media(BaseModel):
 
     crc32cHash: Optional[int] = Field(None, ge=0, le=2**32 - 1)
     """
-    (format: uint32)
+    uint32 format
 
     For Scotty Uploads: Scotty-provided hashes for uploads
     

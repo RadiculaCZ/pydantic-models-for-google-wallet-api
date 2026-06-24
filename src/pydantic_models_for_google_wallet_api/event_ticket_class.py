@@ -285,9 +285,7 @@ class EventDateTime(BaseModel):
     Without offset information, some rich features may not be available.
     """
 
-    doorsOpenLabel: DoorsOpenLabel = (
-        DoorsOpenLabel.DOORS_OPEN_LABEL_UNSPECIFIED
-    )
+    doorsOpenLabel: DoorsOpenLabel = DoorsOpenLabel.DOORS_OPEN_LABEL_UNSPECIFIED
     """
     The label to use for the doors open value (`doorsOpen`) on the card detail
     view. Each available option maps to a set of localized strings, so that
@@ -596,9 +594,7 @@ class EventTicketClass(BaseModel):
     the object and 10 from the class.
     """
 
-    linksModuleData: list[LinksModuleData] = Field(
-        default_factory=list,
-    )
+    linksModuleData: Optional[LinksModuleData] = None
     """
     Links module data. If links module data is also defined on the object, both
     will be displayed.
@@ -661,9 +657,9 @@ class EventTicketClass(BaseModel):
     characters to ensure full string is displayed on smaller screens.
     """
 
-    multipleDevicesAndHoldersAllowedStatus: (
-        MultipleDevicesAndHoldersAllowedStatus
-    ) = MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    multipleDevicesAndHoldersAllowedStatus: MultipleDevicesAndHoldersAllowedStatus = (
+        MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    )
     """
     Identifies whether multiple users and devices will save the same object
     referencing this class.

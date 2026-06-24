@@ -95,6 +95,36 @@ class GenericType(str, Enum):
     type offers more features and functionality than a generic pass type.
     """
 
+    GENERIC_BUSINESS_CARD = "GENERIC_BUSINESS_CARD"
+    """
+    Represents a business card.
+    """
+
+    GENERIC_BARCODE_PASS = "GENERIC_BARCODE_PASS"
+    """
+    Represents a barcode pass.
+    """
+
+    GENERIC_MEMBERSHIP_CARD = "GENERIC_MEMBERSHIP_CARD"
+    """
+    Represents a membership card.
+    """
+
+    GENERIC_STUDENT_CARD = "GENERIC_STUDENT_CARD"
+    """
+    Represents a student card.
+    """
+
+    GENERIC_TRANSIT_PASS = "GENERIC_TRANSIT_PASS"
+    """
+    Represents a transit pass.
+    """
+
+    GENERIC_VEHICLE_REGISTRATION = "GENERIC_VEHICLE_REGISTRATION"
+    """
+    Represents a vehicle registration.
+    """
+
     GENERIC_OTHER = "GENERIC_OTHER"
     """
     Other type

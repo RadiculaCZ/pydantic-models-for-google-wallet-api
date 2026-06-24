@@ -14,9 +14,7 @@ class ImageUri(BaseModel):
     The location of the image. URIs must have a scheme.
     """
 
-    description: Annotated[
-        Optional[str], deprecated("This item is deprecated!")
-    ] = None
+    description: Annotated[Optional[str], deprecated("This item is deprecated!")] = None
     """
     Additional information about the image, which is unused and retained only
     for backward compatibility.
@@ -51,7 +49,34 @@ class Image(BaseModel):
     The URI for the image.
     """
 
+    privateImageId: Optional[str] = None
+    """
+    An ID for an already uploaded private image. Either this or source_uri
+    should be set. Requests setting both or neither will be rejected. Please
+    contact support to use private images.
+    """
+
     contentDescription: LocalizedString
     """
     Description of the image used for accessibility.
+    """
+
+
+class UploadPrivateImageRequest(BaseModel):
+    """
+    Request to upload a private image to use in a pass.
+    """
+
+    pass
+
+
+class UploadPrivateImageResponse(BaseModel):
+    """
+    Response for uploading the private image.
+    """
+
+    privateImageId: str
+    """
+    Unique ID of the uploaded image to be referenced later in
+    Image.private_image_id.
     """

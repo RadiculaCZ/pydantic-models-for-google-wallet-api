@@ -153,7 +153,7 @@ class LoyaltyObject(BaseModel):
     Deprecated
     """
 
-    state: State = State.STATE_UNSPECIFIED
+    state: State
     """
     Required. The state of the object. This field is used to determine how an
     object is displayed in the app. For example, an `inactive` object is moved
@@ -203,7 +203,7 @@ class LoyaltyObject(BaseModel):
     `accountId` fields are used as fallback if present.
     """
 
-    hasLinkedDevices: Optional[bool] = None
+    hasLinkedDevice: Optional[bool] = None
     """
     Whether this object is currently linked to a single device. This field is
     set by the platform when a user saves the object, linking it to their

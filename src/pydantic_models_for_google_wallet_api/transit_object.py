@@ -15,6 +15,7 @@ from .info_module_data import InfoModuleData
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
 from .localized_string import LocalizedString
+from .media import Media, MediaRequestInfo
 from .merchant_location import MerchantLocation
 from .message import Message
 from .money import Money
@@ -534,7 +535,7 @@ class TransitObject(BaseModel):
     triplet which is `#rgb`, such as `#fc0`.
     """
 
-    tripType: TripType = TripType.TRIP_TYPE_UNSPECIFIED
+    tripType: TripType
     """
     Required. The type of trip this transit object represents. Used to
     determine the pass title and/or which symbol to use between the origin and
@@ -569,7 +570,7 @@ class TransitObject(BaseModel):
     Deprecated
     """
 
-    state: ObjectState = ObjectState.STATE_UNSPECIFIED
+    state: ObjectState
     """
     Required. The state of the object. This field is used to determine how an
     object is displayed in the app. For example, an `inactive` object is moved
@@ -758,4 +759,20 @@ class TransitObject(BaseModel):
     MerchantLocations added beyond the 10 will be rejected. These locations
     will trigger a notification when a user enters within a Google-set radius
     of the point. This field replaces the deprecated LatLongPoints.
+    """
+
+
+class TransitObjectUploadRotatingBarcodeValuesRequest(BaseModel):
+    """
+    Request to upload rotating barcode values.
+    """
+
+    blob: Optional[Media] = None
+    """
+    A reference to the rotating barcode values payload that was uploaded.
+    """
+
+    mediaRequestInfo: Optional[MediaRequestInfo] = None
+    """
+    Extra information about the uploaded media.
     """

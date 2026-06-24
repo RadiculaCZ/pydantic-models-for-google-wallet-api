@@ -1,5 +1,10 @@
+from ._discovery_meta import discovery_schema
 from .add_message_request import AddMessageRequest
-from .app_link_data import AppLinkData, AppLinkInfo, AppTarget
+from .app_link_data import (
+    AppLinkData,
+    AppLinkDataAppLinkInfo,
+    AppLinkDataAppLinkInfoAppTarget,
+)
 from .barcode import Barcode
 from .barcode_render_encoding import BarcodeRenderEncoding
 from .barcode_type import BarcodeType
@@ -69,19 +74,26 @@ from .generic_object import (
 from .gift_card_class import GiftCardClass
 from .gift_card_object import GiftCardObject
 from .grouping_info import GroupingInfo
-from .image import Image, ImageUri
+from .image import (
+    Image,
+    ImageUri,
+    UploadPrivateImageRequest,
+    UploadPrivateImageResponse,
+)
 from .image_module_data import ImageModuleData
 from .info_module_data import InfoModuleData, LabelValue, LabelValueRow
 from .issuer import (
     AuthenticationKey,
     Issuer,
     IssuerContactInfo,
+    IssuerListResponse,
     SmartTapMerchantData,
 )
 from .jwt import JWT, GoogleWalletApiJWT, JwtPayload
-from .jwt_resource import JwtResource, JwtResourceInsertResponse, Resources
+from .jwt_resource import JwtInsertResponse, JwtResource, Resources
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
+from .list_response import ResourcePaginatedListing
 from .localized_string import LocalizedString, TranslatedString
 from .loyalty_class import (
     DiscoverableProgram,
@@ -92,26 +104,27 @@ from .loyalty_class import (
 )
 from .loyalty_class import State as DiscoverableProgramState
 from .loyalty_object import LoyaltyObject, LoyaltyPoints, LoyaltyPointsBalance
+from .media import (
+    Blobstore2Info,
+    CompositeMedia,
+    CompositeMediaReferenceType,
+    ContentTypeInfo,
+    DiffChecksumsResponse,
+    DiffDownloadResponse,
+    DiffUploadRequest,
+    DiffUploadResponse,
+    DiffVersionResponse,
+    DownloadParameters,
+    Media,
+    MediaReferenceType,
+    MediaRequestInfo,
+    ObjectId,
+)
 from .merchant_location import MerchantLocation
 from .message import Message, MessageType
 from .modify_linked_offer_objects_request import (
     ModifyLinkedOfferObjects,
     ModifyLinkedOfferObjectsRequest,
-)
-from .media import (
-    MediaReferenceType,
-    Blobstore2Info,
-    CompositeMediaReferenceType,
-    ObjectId,
-    CompositeMedia,
-    DiffUploadRequest,
-    DiffUploadResponse,
-    ContentTypeInfo,
-    DownloadParameters,
-    DiffVersionResponse,
-    DiffChecksumsResponse,
-    DiffDownloadResponse,
-    Media,
 )
 from .money import Money
 from .multiple_devices_and_holders_allowed_status import (
@@ -128,16 +141,15 @@ from .pass_constraints import (
 )
 from .permissions import Permission, Permissions, Role
 from .private_content import SetPassUpdateNoticeRequest
-from .resource_listing import ResourceListing, ResourcePaginatedListing
-from .resource_wrapper import ResourceWrapper
+from .resource_response import EmptyResponse, ResourceResponse
 from .review import Review
 from .review_status import ReviewStatus
 from .rotating_barcode import (
     RotatingBarcode,
+    RotatingBarcodeTotpDetails,
+    RotatingBarcodeTotpDetailsTotpParameters,
     RotatingBarcodeValues,
     TotpAlgorithm,
-    TotpDetails,
-    TotpParameters,
 )
 from .save_restrictions import SaveRestrictions
 from .security_animation import AnimationType, SecurityAnimation
@@ -159,6 +171,7 @@ from .transit_object import (
     TicketSeat,
     TicketStatus,
     TransitObject,
+    TransitObjectUploadRotatingBarcodeValuesRequest,
     TripType,
 )
 from .transit_object import State as ActivationState
@@ -170,10 +183,11 @@ from .value_added_module_data import (
 from .view_unlock_requirement import ViewUnlockRequirement
 
 __all__ = [
+    "discovery_schema",
     "AddMessageRequest",
     "AppLinkData",
-    "AppLinkInfo",
-    "AppTarget",
+    "AppLinkDataAppLinkInfo",
+    "AppLinkDataAppLinkInfoAppTarget",
     "Barcode",
     "BarcodeRenderEncoding",
     "BarcodeType",
@@ -233,6 +247,8 @@ __all__ = [
     "GroupingInfo",
     "Image",
     "ImageUri",
+    "UploadPrivateImageRequest",
+    "UploadPrivateImageResponse",
     "ImageModuleData",
     "InfoModuleData",
     "LabelValue",
@@ -240,15 +256,17 @@ __all__ = [
     "AuthenticationKey",
     "Issuer",
     "IssuerContactInfo",
+    "IssuerListResponse",
     "SmartTapMerchantData",
     "JWT",
     "GoogleWalletApiJWT",
     "JwtPayload",
+    "JwtInsertResponse",
     "JwtResource",
-    "JwtResourceInsertResponse",
     "Resources",
     "LatLongPoint",
     "LinksModuleData",
+    "ResourcePaginatedListing",
     "LocalizedString",
     "TranslatedString",
     "DiscoverableProgram",
@@ -277,6 +295,7 @@ __all__ = [
     "DiffVersionResponse",
     "DiffChecksumsResponse",
     "DiffDownloadResponse",
+    "MediaRequestInfo",
     "Media",
     "Money",
     "MultipleDevicesAndHoldersAllowedStatus",
@@ -292,16 +311,15 @@ __all__ = [
     "Permissions",
     "Role",
     "SetPassUpdateNoticeRequest",
-    "ResourceListing",
-    "ResourcePaginatedListing",
-    "ResourceWrapper",
+    "EmptyResponse",
+    "ResourceResponse",
     "Review",
     "ReviewStatus",
     "RotatingBarcode",
+    "RotatingBarcodeTotpDetails",
+    "RotatingBarcodeTotpDetailsTotpParameters",
     "RotatingBarcodeValues",
     "TotpAlgorithm",
-    "TotpDetails",
-    "TotpParameters",
     "SaveRestrictions",
     "AnimationType",
     "SecurityAnimation",
@@ -328,6 +346,7 @@ __all__ = [
     "TicketSeat",
     "TicketStatus",
     "TransitObject",
+    "TransitObjectUploadRotatingBarcodeValuesRequest",
     "TripType",
     "Uri",
     "ModuleViewConstraints",

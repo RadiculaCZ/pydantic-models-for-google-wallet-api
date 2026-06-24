@@ -4,8 +4,11 @@
 
 from pydantic import BaseModel
 
+from ._discovery_meta import discovery_schema
 
-class ResourceWrapper[ResourceType: BaseModel](BaseModel):
+
+@discovery_schema("*AddMessageResponse")
+class ResourceResponse[ResourceType: BaseModel](BaseModel):
     """
     Generic wrapper of a resource returned by the Google Wallet API as a result
     of an API call modifying or creating a sub-resource.
@@ -17,3 +20,16 @@ class ResourceWrapper[ResourceType: BaseModel](BaseModel):
     example, if the API call was to add a message to an event ticket class,
     this would be the event ticket class that had the message added.
     """
+
+
+@discovery_schema(
+    "SetPassUpdateNoticeResponse",
+    "TransitObjectUploadRotatingBarcodeValuesResponse",
+)
+class EmptyResponse(BaseModel):
+    """
+    A response with no content. Used for API calls that do not return a
+    resource.
+    """
+
+    pass

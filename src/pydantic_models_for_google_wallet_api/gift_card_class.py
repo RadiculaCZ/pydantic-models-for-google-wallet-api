@@ -157,7 +157,7 @@ class GiftCardClass(BaseModel):
     Note: This field is currently not supported to trigger geo notifications.
     """
 
-    reviewStatus: ReviewStatus = ReviewStatus.REVIEW_STATUS_UNSPECIFIED
+    reviewStatus: ReviewStatus
     """
     Required. The status of the class. This field can be set to `draft` or
     `underReview` using the insert, patch, or update API calls. Once the review
@@ -262,9 +262,9 @@ class GiftCardClass(BaseModel):
     characters to ensure full string is displayed on smaller screens.
     """
 
-    multipleDevicesAndHoldersAllowedStatus: (
-        MultipleDevicesAndHoldersAllowedStatus
-    ) = MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    multipleDevicesAndHoldersAllowedStatus: MultipleDevicesAndHoldersAllowedStatus = (
+        MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    )
     """
     Identifies whether multiple users and devices will save the same object
     referencing this class.

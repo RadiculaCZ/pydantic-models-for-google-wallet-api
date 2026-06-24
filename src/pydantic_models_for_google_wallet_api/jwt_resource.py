@@ -21,12 +21,10 @@ from .transit_object import TransitObject
 
 
 class JwtResource(BaseModel):
-    jwt: Optional[str] = None
+    jwt: str
     """
-    A string representing a JWT of the format described at
+    Required. A string representing a JWT of the format described at
     https://developers.google.com/wallet/reference/rest/v1/Jwt
-
-    See the `JWT` class.
     """
 
 
@@ -102,7 +100,7 @@ class Resources(BaseModel):
     """
 
 
-class JwtResourceInsertResponse(BaseModel):
+class JwtInsertResponse(BaseModel):
     """
     Response body for the insert operation on the JWT resource.
     """

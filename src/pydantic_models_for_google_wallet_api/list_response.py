@@ -3,20 +3,11 @@
 
 from pydantic import BaseModel
 
+from ._discovery_meta import discovery_schema
 from .pagination import Pagination
 
 
-class ResourceListing[ResourceType: BaseModel](BaseModel):
-    """
-    Generic listing of resources returned by the Google Wallet API.
-    """
-
-    resources: list[ResourceType]
-    """
-    Resources corresponding to the list request.
-    """
-
-
+@discovery_schema("*ListResponse")
 class ResourcePaginatedListing[ResourceType: BaseModel](BaseModel):
     """
     Generic paginated listing of resources returned by the Google Wallet API.

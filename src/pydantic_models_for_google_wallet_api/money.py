@@ -16,8 +16,13 @@ class Money(BaseModel):
     `"walletobjects#money"`.
     """
 
-    micros: int
+    micros: str = Field(
+        ...,
+        pattern=r"^[+-]?\d+$",
+    )
     """
+    int64 format
+
     The unit of money amount in micros. For example, $1 USD would be
     represented as 1000000 micros.
     """

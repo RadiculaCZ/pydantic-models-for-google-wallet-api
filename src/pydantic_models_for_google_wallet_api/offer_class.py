@@ -79,9 +79,7 @@ class OfferClass(BaseModel):
     displayed on smaller screens.
     """
 
-    redemptionChannel: RedemptionChannel = (
-        RedemptionChannel.REDEMPTION_CHANNEL_UNSPECIFIED
-    )
+    redemptionChannel: RedemptionChannel
     """
     Required. The redemption channels applicable to this offer.
     """
@@ -211,7 +209,7 @@ class OfferClass(BaseModel):
     Note: This field is currently not supported to trigger geo notifications.
     """
 
-    reviewStatus: ReviewStatus = ReviewStatus.REVIEW_STATUS_UNSPECIFIED
+    reviewStatus: ReviewStatus
     """
     Required. The status of the class. This field can be set to `draft` or The
     status of the class. This field can be set to `draft` or `underReview`

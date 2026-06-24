@@ -191,7 +191,7 @@ class FlightObject(BaseModel):
     retrieved during a GET.
     """
 
-    passengerName: Optional[str] = None
+    passengerName: str
     """
     Required. Passenger name as it would appear on the boarding pass.
 
@@ -250,7 +250,7 @@ class FlightObject(BaseModel):
     Deprecated
     """
 
-    state: State = State.STATE_UNSPECIFIED
+    state: State
     """
     Required. The state of the object. This field is used to determine how an
     object is displayed in the app. For example, an `inactive` object is moved

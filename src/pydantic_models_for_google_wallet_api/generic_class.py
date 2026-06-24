@@ -54,7 +54,7 @@ class GenericClass(BaseModel):
     class and 10 from object.
     """
 
-    linksModuleData: list[LinksModuleData] = Field(default_factory=list)
+    linksModuleData: Optional[LinksModuleData] = None
     """
     Links module data. If `linksModuleData` is also defined on the object, both
     will be displayed. The maximum number of these fields displayed is 10 from
@@ -83,9 +83,9 @@ class GenericClass(BaseModel):
     security animation will be rendered on pass details.
     """
 
-    multipleDevicesAndHoldersAllowedStatus: (
-        MultipleDevicesAndHoldersAllowedStatus
-    ) = MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    multipleDevicesAndHoldersAllowedStatus: MultipleDevicesAndHoldersAllowedStatus = (
+        MultipleDevicesAndHoldersAllowedStatus.STATUS_UNSPECIFIED
+    )
     """
     Identifies whether multiple users and devices will save the same object
     referencing this class.
