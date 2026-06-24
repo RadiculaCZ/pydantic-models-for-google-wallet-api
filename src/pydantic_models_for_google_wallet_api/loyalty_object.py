@@ -221,10 +221,7 @@ class LoyaltyObject(BaseModel):
     Currently, this can only be set for offers.
     """
 
-    infoModuleData: Annotated[
-        Optional[InfoModuleData],
-        deprecated("This item is deprecated!"),
-    ] = None
+    infoModuleData: Optional[InfoModuleData] = None
     """
     Deprecated. Use textModulesData instead.
     """

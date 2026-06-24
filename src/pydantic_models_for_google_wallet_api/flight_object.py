@@ -314,10 +314,7 @@ class FlightObject(BaseModel):
     Currently, this can only be set for Flights.
     """
 
-    infoModuleData: Annotated[
-        Optional[InfoModuleData],
-        deprecated("This field is deprecated!"),
-    ] = None
+    infoModuleData: Optional[InfoModuleData] = None
     """
     Deprecated. Use textModulesData instead.
     """

@@ -21,6 +21,7 @@ from typing import Any, get_args, get_origin
 
 import requests
 from pydantic import BaseModel
+from typing_extensions import deprecated as _te_deprecated
 
 DISCOVERY_URL = "https://walletobjects.googleapis.com/$discovery/rest?version=v1"
 PACKAGE_NAME = "pydantic_models_for_google_wallet_api"
@@ -61,6 +62,7 @@ class DiscoveryProp:
     desc: TypeDesc
     description: str | None
     format_hint: str | None
+    deprecated: bool = False
 
 
 @dataclass
@@ -75,6 +77,7 @@ class AstClassDocs:
     class_doc: str | None
     field_docs: dict[str, str]
     member_docs: dict[str, str]
+    deprecated_fields: set[str] = field(default_factory=set)
 
 
 @dataclass
@@ -83,6 +86,7 @@ class ModelInfo:
     name: str
     fields: dict[str, TypeDesc]
     required: dict[str, bool]
+    deprecated_fields: set[str]
     field_docs: dict[str, str]
     class_doc: str | None
     schema_patterns: tuple[str, ...]
@@ -146,6 +150,7 @@ def parse_discovery_schemas(payload: dict[str, Any]) -> dict[str, DiscoverySchem
                 desc=parse_discovery_type(prop),
                 description=prop.get("description"),
                 format_hint=prop.get("format"),
+                deprecated=bool(prop.get("deprecated", False)),
             )
         schemas[name] = DiscoverySchema(
             name=name,
@@ -153,6 +158,31 @@ def parse_discovery_schemas(payload: dict[str, Any]) -> dict[str, DiscoverySchem
             properties=props,
         )
     return schemas
+
+
+def _is_deprecated_call(node: ast.expr) -> bool:
+    """Check if a node is a call to deprecated() or imports deprecated() from typing_extensions."""
+    if isinstance(node, ast.Call):
+        if isinstance(node.func, ast.Name):
+            return node.func.id in {"deprecated", "_te_deprecated"}
+        if isinstance(node.func, ast.Attribute):
+            if node.func.attr == "deprecated":
+                return True
+    return False
+
+
+def _contains_deprecated_in_annotation(node: ast.expr) -> bool:
+    """Check if an Annotated type contains deprecated()."""
+    if isinstance(node, ast.Subscript):
+        if isinstance(node.value, ast.Name) and node.value.id == "Annotated":
+            if isinstance(node.slice, ast.Tuple):
+                for elt in node.slice.elts:
+                    if _is_deprecated_call(elt):
+                        return True
+            elif _is_deprecated_call(node.slice):
+                return True
+        return _contains_deprecated_in_annotation(node.value)
+    return False
 
 
 def parse_class_docs_from_file(file_path: Path) -> dict[str, AstClassDocs]:
@@ -166,6 +196,7 @@ def parse_class_docs_from_file(file_path: Path) -> dict[str, AstClassDocs]:
         class_doc = ast.get_docstring(node)
         field_docs: dict[str, str] = {}
         member_docs: dict[str, str] = {}
+        deprecated_fields: set[str] = set()
         body = node.body
 
         for idx, stmt in enumerate(body):
@@ -181,6 +212,8 @@ def parse_class_docs_from_file(file_path: Path) -> dict[str, AstClassDocs]:
             name = None
             if isinstance(stmt, ast.AnnAssign) and isinstance(stmt.target, ast.Name):
                 name = stmt.target.id
+                if _contains_deprecated_in_annotation(stmt.annotation):
+                    deprecated_fields.add(name)
             elif isinstance(stmt, ast.Assign) and len(stmt.targets) == 1:
                 target = stmt.targets[0]
                 if isinstance(target, ast.Name):
@@ -194,6 +227,7 @@ def parse_class_docs_from_file(file_path: Path) -> dict[str, AstClassDocs]:
             class_doc=class_doc,
             field_docs=field_docs,
             member_docs=member_docs,
+            deprecated_fields=deprecated_fields,
         )
 
     return result
@@ -301,9 +335,11 @@ def collect_model_info(pkg, ast_docs: dict[str, AstClassDocs]) -> list[ModelInfo
         fields: dict[str, TypeDesc] = {}
         required: dict[str, bool] = {}
 
+        deprecated_fields: set[str] = set()
         for field_name, field_info in obj.model_fields.items():
             fields[field_name] = parse_model_type(field_info.annotation)
             required[field_name] = field_info.is_required()
+        deprecated_fields = docs.deprecated_fields
 
         schema_patterns = tuple(getattr(obj, "__discovery_schemas__", (obj.__name__,)))
 
@@ -313,6 +349,7 @@ def collect_model_info(pkg, ast_docs: dict[str, AstClassDocs]) -> list[ModelInfo
                 name=obj.__name__,
                 fields=fields,
                 required=required,
+                deprecated_fields=deprecated_fields,
                 field_docs=docs.field_docs,
                 class_doc=docs.class_doc,
                 schema_patterns=schema_patterns,
@@ -434,6 +471,7 @@ def compare(
 
     field_lines: list[str] = []
     enum_lines: list[str] = []
+    deprecation_lines: list[str] = []
     advisory_lines: list[str] = []
     doc_lines: list[str] = []
 
@@ -485,6 +523,17 @@ def compare(
                     for value in extra_enum:
                         enum_lines.append(f"- {value}")
 
+            api_deprecated = api_prop.deprecated
+            model_deprecated = field_name in model.deprecated_fields
+            if api_deprecated and not model_deprecated:
+                deprecation_lines.append(
+                    f"+ {schema_name}.{field_name} (deprecated in API, not in model)"
+                )
+            elif model_deprecated and not api_deprecated:
+                deprecation_lines.append(
+                    f"- {schema_name}.{field_name} (deprecated in model, not in API)"
+                )
+
             if api_prop.format_hint:
                 advisory_lines.append(
                     f"[format] {schema_name}.{field_name}: "
@@ -530,6 +579,7 @@ def compare(
         },
         "fields": field_lines,
         "enums": enum_lines,
+        "deprecations": deprecation_lines,
         "advisory": sorted(set(advisory_lines)),
         "docstrings": sorted(set(doc_lines)),
     }
@@ -558,6 +608,12 @@ def render_text_report(result: dict[str, Any]) -> str:
     else:
         lines.append("(none)")
 
+    lines.append("\n## Deprecations")
+    if result["deprecations"]:
+        lines.extend(result["deprecations"])
+    else:
+        lines.append("(none)")
+
     lines.append("\n## Advisory")
     if result["advisory"]:
         lines.extend(result["advisory"])
@@ -580,6 +636,7 @@ def has_primary_discrepancy(result: dict[str, Any]) -> bool:
             result["types"]["superfluous_in_package"],
             result["fields"],
             result["enums"],
+            result["deprecations"],
         ]
     )
 
