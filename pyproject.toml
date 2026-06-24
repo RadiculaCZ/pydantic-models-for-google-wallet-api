@@ -31,3 +31,8 @@ verbose = false
 line_length = 79
 multi_line_output = 3
 include_trailing_comma = true
+
+[dependency-groups]
+dev = [
+    "requests>=2.32.5",
+]
