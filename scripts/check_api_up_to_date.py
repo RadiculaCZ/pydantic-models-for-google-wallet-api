@@ -21,7 +21,6 @@ from typing import Any, get_args, get_origin
 
 import requests
 from pydantic import BaseModel
-from typing_extensions import deprecated as _te_deprecated
 
 DISCOVERY_URL = "https://walletobjects.googleapis.com/$discovery/rest?version=v1"
 PACKAGE_NAME = "pydantic_models_for_google_wallet_api"
