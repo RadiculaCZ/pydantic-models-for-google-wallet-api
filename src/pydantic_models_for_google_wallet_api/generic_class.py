@@ -69,6 +69,8 @@ class GenericClass(BaseModel):
 
     redemptionIssuers: list[str] = Field(default_factory=list)
     """
+    int64 format
+
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
     must have at least one Smart Tap key configured.

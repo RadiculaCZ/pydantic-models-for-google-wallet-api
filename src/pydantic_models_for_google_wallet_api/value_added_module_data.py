@@ -60,6 +60,8 @@ class ValueAddedModuleData(BaseModel):
 
     sortIndex: Optional[int] = None
     """
+    int32 format
+
     The index for sorting the modules. Modules with a lower sort index are
     shown before modules with a higher sort index. If unspecified, the sort
     index is assumed to be INT_MAX. For two modules with the same index, the

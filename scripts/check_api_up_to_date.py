@@ -34,6 +34,7 @@ PKG_ONLY_MODELS = {
 
 RE_REQUIRED = re.compile(r"^\s*required\b", flags=re.IGNORECASE)
 RE_DEFAULT = re.compile(r"\bby default\b|\bdefault\b", flags=re.IGNORECASE)
+RE_FORMAT_LINE = re.compile(r"^\s*([A-Za-z0-9_.-]+)\s+format\s*$")
 
 
 @dataclass
@@ -99,6 +100,37 @@ def normalize_text(value: str | None) -> str:
     return text
 
 
+def split_docstring_format(value: str | None) -> tuple[str | None, str | None]:
+    """
+    Split a field docstring into (format_hint, description_without_format_line).
+
+    The format hint is recognized only when the first non-empty line follows the
+    convention: "<format> format".
+    """
+    if value is None:
+        return None, None
+
+    lines = value.splitlines()
+    first_non_empty_idx: int | None = None
+    for idx, line in enumerate(lines):
+        if line.strip():
+            first_non_empty_idx = idx
+            break
+
+    if first_non_empty_idx is None:
+        return None, value
+
+    match = RE_FORMAT_LINE.match(lines[first_non_empty_idx].strip())
+    if not match:
+        return None, value
+
+    format_hint = match.group(1).lower()
+    lines_without_format = (
+        lines[:first_non_empty_idx] + lines[first_non_empty_idx + 1 :]
+    )
+    return format_hint, "\n".join(lines_without_format)
+
+
 def is_pattern(value: str) -> bool:
     return any(ch in value for ch in "*?[")
 
@@ -144,11 +176,16 @@ def parse_discovery_schemas(payload: dict[str, Any]) -> dict[str, DiscoverySchem
     for name, raw in payload.get("schemas", {}).items():
         props: dict[str, DiscoveryProp] = {}
         for prop_name, prop in raw.get("properties", {}).items():
+            format_hint = prop.get("format")
+            if format_hint is None and prop.get("type") == "array":
+                items = prop.get("items", {})
+                format_hint = items.get("format")
+
             props[prop_name] = DiscoveryProp(
                 name=prop_name,
                 desc=parse_discovery_type(prop),
                 description=prop.get("description"),
-                format_hint=prop.get("format"),
+                format_hint=format_hint,
                 deprecated=bool(prop.get("deprecated", False)),
             )
         schemas[name] = DiscoverySchema(
@@ -494,6 +531,10 @@ def compare(
         for field_name in sorted(api_fields & model_fields):
             api_prop = schema.properties[field_name]
             model_desc = model.fields[field_name]
+            model_field_doc_raw = model.field_docs.get(field_name)
+            model_doc_format, model_field_doc_wo_format = split_docstring_format(
+                model_field_doc_raw
+            )
 
             if model.name in {
                 "ResourceListing",
@@ -533,10 +574,31 @@ def compare(
                     f"- {schema_name}.{field_name} (deprecated in model, not in API)"
                 )
 
-            if api_prop.format_hint:
+            api_format = api_prop.format_hint.lower() if api_prop.format_hint else None
+            if api_format == "byte":
+                if model_doc_format is not None:
+                    advisory_lines.append(
+                        f"[format] {schema_name}.{field_name}: "
+                        f"superfluous docstring format '{model_doc_format} format' "
+                        "(API uses byte format represented as bytes type annotation)"
+                    )
+            elif api_format:
+                if model_doc_format is None:
+                    advisory_lines.append(
+                        f"[format] {schema_name}.{field_name}: "
+                        f"missing docstring format line '{api_format} format'"
+                    )
+                elif model_doc_format != api_format:
+                    advisory_lines.append(
+                        f"[format] {schema_name}.{field_name}: "
+                        f"docstring format line is '{model_doc_format} format', "
+                        f"expected '{api_format} format'"
+                    )
+            elif model_doc_format is not None:
                 advisory_lines.append(
                     f"[format] {schema_name}.{field_name}: "
-                    f"API format={api_prop.format_hint}"
+                    f"superfluous docstring format '{model_doc_format} format' "
+                    "(API has no format constraint)"
                 )
 
             api_desc_norm = normalize_text(api_prop.description)
@@ -557,7 +619,7 @@ def compare(
                 )
 
             if check_docstrings:
-                model_field_doc = normalize_text(model.field_docs.get(field_name))
+                model_field_doc = normalize_text(model_field_doc_wo_format)
                 if (
                     api_desc_norm
                     and model_field_doc

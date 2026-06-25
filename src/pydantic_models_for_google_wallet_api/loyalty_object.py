@@ -39,12 +39,16 @@ class LoyaltyPointsBalance(BaseModel):
 
     int: Optional[int] = None
     """
+    int32 format
+
     The integer form of a balance. Only one of these subtypes (string, int,
     double, money) should be populated.
     """
 
     double: Optional[float] = None
     """
+    double format
+
     The double form of a balance. Only one of these subtypes (string, int,
     double, money) should be populated.
     """

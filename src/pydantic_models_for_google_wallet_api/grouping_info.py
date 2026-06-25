@@ -8,6 +8,8 @@ from pydantic import BaseModel
 class GroupingInfo(BaseModel):
     sortIndex: Optional[int] = None
     """
+    int32 format
+
     Optional index for sorting the passes when they are grouped with other
     passes. Passes with lower sort index are shown before passes with higher
     sort index. If unspecified, the value is assumed to be INT_MAX. For two

@@ -18,6 +18,8 @@ class Pagination(BaseModel):
 
     resultsPerPage: int
     """
+    int32 format
+
     Number of results returned in this page.
     """
 

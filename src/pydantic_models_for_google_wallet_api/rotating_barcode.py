@@ -33,6 +33,8 @@ class RotatingBarcodeTotpDetailsTotpParameters(BaseModel):
 
     valueLength: int = Field(..., gt=0)
     """
+    int32 format
+
     The length of the TOTP value in decimal digits.
     """
 
