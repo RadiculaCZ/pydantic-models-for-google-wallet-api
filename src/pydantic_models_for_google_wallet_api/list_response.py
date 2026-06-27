@@ -8,7 +8,7 @@ from .pagination import Pagination
 
 
 @discovery_schema("*ListResponse")
-class ResourcePaginatedListing[ResourceType: BaseModel](BaseModel):
+class PaginatedResourceListing[ResourceType: BaseModel](BaseModel):
     """
     Generic paginated listing of resources returned by the Google Wallet API.
     """

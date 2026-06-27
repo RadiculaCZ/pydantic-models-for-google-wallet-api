@@ -93,7 +93,7 @@ from .jwt import JWT, GoogleWalletApiJWT, JwtPayload
 from .jwt_resource import JwtInsertResponse, JwtResource, Resources
 from .lat_long_point import LatLongPoint
 from .links_module_data import LinksModuleData
-from .list_response import ResourcePaginatedListing
+from .list_response import PaginatedResourceListing
 from .localized_string import LocalizedString, TranslatedString
 from .loyalty_class import (
     DiscoverableProgram,
@@ -266,7 +266,7 @@ __all__ = [
     "Resources",
     "LatLongPoint",
     "LinksModuleData",
-    "ResourcePaginatedListing",
+    "PaginatedResourceListing",
     "LocalizedString",
     "TranslatedString",
     "DiscoverableProgram",
