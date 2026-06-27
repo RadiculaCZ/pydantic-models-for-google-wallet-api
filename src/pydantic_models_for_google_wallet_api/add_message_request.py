@@ -7,7 +7,7 @@ from .message import Message
 
 class AddMessageRequest(BaseModel):
     """
-    Resource used when the AddMessage endpoints are called
+    Resource used when the AddMessage endpoints are called.
     """
 
     message: Message

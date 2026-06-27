@@ -61,12 +61,9 @@ class GiftCardObject(BaseModel):
 
     balanceUpdateTime: Optional[DateTime] = None
     """
-    The date and time when the balance was last updated.
-
-    Offset is required.
-
-    If balance is updated and this property is not provided, system will
-    default to the current time.
+    The date and time when the balance was last updated. Offset is required. If
+    balance is updated and this property is not provided, system will default
+    to the current time.
     """
 
     eventNumber: Optional[str] = None
@@ -78,7 +75,7 @@ class GiftCardObject(BaseModel):
     """
     Required. The unique identifier for an object. This ID must be unique
     across all objects from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
+    issuer ID.identifier where the former is issued by Google and latter is
     chosen by you. The unique identifier should only include alphanumeric
     characters, '.', '_', or '-'.
     """
@@ -86,10 +83,9 @@ class GiftCardObject(BaseModel):
     classId: str
     """
     Required. The class associated with this object. The class must be of the
-    same type as this object, must already exist, and must be approved.
-
-    Class IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and latter is chosen by you.
+    same type as this object, must already exist, and must be approved. Class
+    IDs should follow the format issuer ID.identifier where the former is
+    issued by Google and latter is chosen by you.
     """
 
     version: Annotated[
@@ -105,8 +101,8 @@ class GiftCardObject(BaseModel):
     state: State
     """
     Required. The state of the object. This field is used to determine how an
-    object is displayed in the app. For example, an inactive object is moved to
-    the "Expired passes" section.
+    object is displayed in the app. For example, an `inactive` object is moved
+    to the "Expired passes" section.
     """
 
     barcode: Optional[Barcode] = None
@@ -161,9 +157,7 @@ class GiftCardObject(BaseModel):
     Indicates if notifications should explicitly be suppressed. If this field
     is set to true, regardless of the `messages` field, expiration
     notifications to the user will be suppressed. By default, this field is set
-    to false.
-
-    Currently, this can only be set for offers.
+    to false. Currently, this can only be set for offers.
     """
 
     infoModuleData: Optional[InfoModuleData] = None
@@ -230,21 +224,19 @@ class GiftCardObject(BaseModel):
 
     linkedObjectIds: list[str] = Field(default_factory=list)
     """
-    linkedObjectIds are a list of other objects such as event ticket, loyalty,
-    offer, generic, giftcard, transit and boarding pass that should be
+    linked_object_ids are a list of other objects such as event ticket,
+    loyalty, offer, generic, giftcard, transit and boarding pass that should be
     automatically attached to this giftcard object. If a user had saved this
-    gift card, then these linkedObjectIds would be automatically pushed to the
-    user's wallet (unless they turned off the setting to receive such linked
-    passes).
-
-    Make sure that objects present in linkedObjectIds are already inserted - if
-    not, calls would fail. Once linked, the linked objects cannot be unlinked.
-    You cannot link objects belonging to another issuer. There is a limit to
-    the number of objects that can be linked to a single object. After the
-    limit is reached, new linked objects in the call will be ignored silently.
-
-    Object IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and the latter is chosen by you.
+    gift card, then these linked_object_ids would be automatically pushed to
+    the user's wallet (unless they turned off the setting to receive such
+    linked passes). Make sure that objects present in linked_object_ids are
+    already inserted - if not, calls would fail. Once linked, the linked
+    objects cannot be unlinked. You cannot link objects belonging to another
+    issuer. There is a limit to the number of objects that can be linked to a
+    single object. After the limit is reached, new linked objects in the call
+    will be ignored silently. Object IDs should follow the format issuer ID.
+    identifier where the former is issued by Google and the latter is chosen by
+    you.
     """
 
     notifyPreference: NotificationSettingsForUpdates = (
@@ -265,7 +257,8 @@ class GiftCardObject(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the object.
+    Optional value added module data. Maximum of fifteen on the object. For a
+    pass only fifteen will be displayed.
     """
 
     merchantLocations: list[MerchantLocation] = Field(

@@ -21,8 +21,7 @@ class ViewUnlockRequirement(str, Enum):
 
     UNLOCK_REQUIRED_TO_VIEW = "UNLOCK_REQUIRED_TO_VIEW"
     """
-    Requires the user to unlock their device each time the pass is viewed.
-
-    If the user removes their device lock after saving the pass, then they will
-    be prompted to create a device lock before the pass can be viewed.
+    Requires the user to unlock their device each time the pass is viewed. If
+    the user removes their device lock after saving the pass, then they will be
+    prompted to create a device lock before the pass can be viewed.
     """

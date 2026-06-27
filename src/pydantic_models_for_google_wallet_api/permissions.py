@@ -33,7 +33,8 @@ class Role(str, Enum):
 class Permission(BaseModel):
     emailAddress: str
     """
-    The email address of the user, group, or service account to which this permission refers to.
+    The email address of the user, group, or service account to which this
+    permission refers to.
     """
 
     role: Role

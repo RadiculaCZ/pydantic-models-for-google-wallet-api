@@ -58,27 +58,20 @@ class BoardingAndSeatingInfo(BaseModel):
 
     boardingGroup: Optional[str] = None
     """
-    The value of boarding group (or zone) this passenger shall board with.
-
-    eg: "B"
-
-    The label for this value will be determined by the `boardingPolicy` field
-    in the `flightClass` referenced by this object.
+    The value of boarding group (or zone) this passenger shall board with. eg:
+    "B" The label for this value will be determined by the `boardingPolicy`
+    field in the `flightClass` referenced by this object.
     """
 
     seatNumber: Optional[str] = None
     """
     The value of passenger seat. If there is no specific identifier, use
-    `seatAssignment` instead.
-
-    eg: "25A"
+    `seatAssignment` instead. eg: "25A"
     """
 
     seatClass: Optional[str] = None
     """
-    The value of the seat class.
-
-    eg: "Economy" or "Economy Plus"
+    The value of the seat class. eg: "Economy" or "Economy Plus"
     """
 
     boardingPrivilegeImage: Optional[Image] = None
@@ -91,18 +84,14 @@ class BoardingAndSeatingInfo(BaseModel):
 
     boardingPosition: Optional[str] = None
     """
-    The value of boarding position.
-
-    eg: "76"
+    The value of boarding position. eg: "76"
     """
 
     sequenceNumber: Optional[str] = None
     """
     The sequence number on the boarding pass. This usually matches the sequence
     in which the passengers checked in. Airline might use the number for manual
-    boarding and bag tags.
-
-    eg: "49"
+    boarding and bag tags. eg: "49"
     """
 
     boardingDoor: BoardingDoor
@@ -117,9 +106,7 @@ class BoardingAndSeatingInfo(BaseModel):
     seatAssignment: Optional[LocalizedString] = None
     """
     The passenger's seat assignment. To be used when there is no specific
-    identifier to use in `seatNumber`.
-
-    eg: "assigned at gate"
+    identifier to use in `seatNumber`. eg: "assigned at gate"
     """
 
 
@@ -140,9 +127,8 @@ class FrequentFlyerInfo(BaseModel):
 
     frequentFlyerNumber: Optional[str] = None
     """
-    Frequent flyer number.
-
-    Required for each nested object of kind `walletobjects#frequentFlyerInfo`.
+    Frequent flyer number. Required for each nested object of kind
+    `walletobjects#frequentFlyerInfo`.
     """
 
 
@@ -158,10 +144,9 @@ class ReservationInfo(BaseModel):
 
     confirmationCode: Optional[str] = None
     """
-    Confirmation code needed to check into this flight.
-
-    This is the number that the passenger would enter into a kiosk at the
-    airport to look up the flight and print a boarding pass.
+    Confirmation code needed to check into this flight. This is the number that
+    the passenger would enter into a kiosk at the airport to look up the flight
+    and print a boarding pass.
     """
 
     eticketNumber: Optional[str] = None
@@ -193,9 +178,8 @@ class FlightObject(BaseModel):
 
     passengerName: str
     """
-    Required. Passenger name as it would appear on the boarding pass.
-
-    eg: "Dave M Gahan" or "Gahan/Dave" or "GAHAN/DAVEM"
+    Required. Passenger name as it would appear on the boarding pass. eg: "Dave
+    M Gahan" or "Gahan/Dave" or "GAHAN/DAVEM"
     """
 
     boardingAndSeatingInfo: Optional[BoardingAndSeatingInfo] = None
@@ -217,16 +201,16 @@ class FlightObject(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     id: str
     """
     Required. The unique identifier for an object. This ID must be unique
     across all objects from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
+    issuer ID.identifier where the former is issued by Google and latter is
     chosen by you. The unique identifier should only include alphanumeric
     characters, '.', '_', or '-'.
     """
@@ -234,10 +218,9 @@ class FlightObject(BaseModel):
     classId: str
     """
     Required. The class associated with this object. The class must be of the
-    same type as this object, must already exist, and must be approved.
-
-    Class IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and latter is chosen by you.
+    same type as this object, must already exist, and must be approved. Class
+    IDs should follow the format issuer ID.identifier where the former is
+    issued by Google and latter is chosen by you.
     """
 
     version: Annotated[
@@ -309,9 +292,7 @@ class FlightObject(BaseModel):
     Indicates if notifications should explicitly be suppressed. If this field
     is set to true, regardless of the `messages` field, expiration
     notifications to the user will be suppressed. By default, this field is set
-    to false.
-
-    Currently, this can only be set for Flights.
+    to false. Currently, this can only be set for Flights.
     """
 
     infoModuleData: Optional[InfoModuleData] = None
@@ -378,21 +359,19 @@ class FlightObject(BaseModel):
 
     linkedObjectIds: list[str] = Field(default_factory=list)
     """
-    linkedObjectIds are a list of other objects such as event ticket, loyalty,
-    offer, generic, giftcard, transit and boarding pass that should be
+    linked_object_ids are a list of other objects such as event ticket,
+    loyalty, offer, generic, giftcard, transit and boarding pass that should be
     automatically attached to this flight object. If a user had saved this
-    boarding pass, then these linkedObjectIds would be automatically pushed to
-    the user's wallet (unless they turned off the setting to receive such
-    linked passes).
-
-    Make sure that objects present in linkedObjectIds are already inserted - if
-    not, calls would fail. Once linked, the linked objects cannot be unlinked.
-    You cannot link objects belonging to another issuer. There is a limit to
-    the number of objects that can be linked to a single object. After the
-    limit is reached, new linked objects in the call will be ignored silently.
-
-    Object IDs should follow the format issuer ID.identifier where the former
-    is issued by Google and the latter is chosen by you.
+    boarding pass, then these linked_object_ids would be automatically pushed
+    to the user's wallet (unless they turned off the setting to receive such
+    linked passes). Make sure that objects present in linked_object_ids are
+    already inserted - if not, calls would fail. Once linked, the linked
+    objects cannot be unlinked. You cannot link objects belonging to another
+    issuer. There is a limit to the number of objects that can be linked to a
+    single object. After the limit is reached, new linked objects in the call
+    will be ignored silently. Object IDs should follow the format issuer ID.
+    identifier where the former is issued by Google and the latter is chosen by
+    you.
     """
 
     notifyPreference: NotificationSettingsForUpdates = (
@@ -412,7 +391,8 @@ class FlightObject(BaseModel):
         default_factory=list,
     )
     """
-    Optional value added module data. Maximum of ten on the object.
+    Optional value added module data. Maximum of fifteen on the object. For a
+    pass only fifteen will be displayed.
     """
 
     merchantLocations: list[MerchantLocation] = Field(default_factory=list)

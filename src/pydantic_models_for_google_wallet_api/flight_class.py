@@ -49,9 +49,7 @@ class FlightCarrier(BaseModel):
     """
     Two character IATA airline code of the marketing carrier (as opposed to
     operating carrier). Exactly one of this or `carrierIcaoCode` needs to be
-    provided for `carrier` and `operatingCarrier`.
-
-    eg: "LX" for Swiss Air
+    provided for `carrier` and `operatingCarrier`. eg: "LX" for Swiss Air
     """
 
     carrierIcaoCode: Optional[str] = Field(
@@ -63,18 +61,14 @@ class FlightCarrier(BaseModel):
     """
     Three character ICAO airline code of the marketing carrier (as opposed to
     operating carrier). Exactly one of this or `carrierIataCode` needs to be
-    provided for `carrier` and `operatingCarrier`.
-
-    eg: "EZY" for Easy Jet
+    provided for `carrier` and `operatingCarrier`. eg: "EZY" for Easy Jet
     """
 
     airlineName: Optional[LocalizedString] = None
     """
     A localized name of the airline specified by carrierIataCode. If unset,
-    `issuerName` or `localizedIssuerName` from `FlightClass` will be used for
-    display purposes.
-
-    eg: "Swiss Air" for "LX"
+    `issuer_name` or `localized_issuer_name` from `FlightClass` will be used
+    for display purposes. eg: "Swiss Air" for "LX"
     """
 
     airlineLogo: Optional[Image] = None
@@ -116,9 +110,7 @@ class FlightHeader(BaseModel):
     flightNumber: str
     """
     The flight number without IATA carrier code. This field should contain only
-    digits. This is a required property of `flightHeader`.
-
-    eg: "123"
+    digits. This is a required property of `flightHeader`. eg: "123"
     """
 
     operatingCarrier: Optional[FlightCarrier] = None
@@ -129,18 +121,15 @@ class FlightHeader(BaseModel):
     operatingFlightNumber: Optional[str] = None
     """
     The flight number used by the operating carrier without IATA carrier code.
-    This field should contain only digits.
-
-    eg: "234"
+    This field should contain only digits. eg: "234"
     """
 
     flightNumberDisplayOverride: Optional[str] = None
     """
     Override value to use for flight number. The default value used for display
-    purposes is carrier + flightNumber. If a different value needs to be shown
-    to passengers, use this field to override the default behavior.
-
-    eg: "XX1234 / YY576"
+    purposes is carrier + flight_number. If a different value needs to be shown
+    to passengers, use this field to override the default behavior. eg: "XX1234
+    / YY576"
     """
 
 
@@ -162,9 +151,7 @@ class AirportInfo(BaseModel):
     )
     """
     Three character IATA airport code. This is a required field for `origin`
-    and `destination`.
-
-    eg: "SFO"
+    and `destination`. Eg: "SFO"
     """
 
     terminal: Optional[str] = None
@@ -181,17 +168,12 @@ class AirportInfo(BaseModel):
     """
     Optional field that overrides the airport city name defined by IATA. By
     default, Google takes the `airportIataCode` provided and maps it to the
-    official airport city name defined by IATA.
-
-    Official IATA airport city names can be found at
-    [IATA airport city names](http://www.iata.org/publications/Pages/code-search.aspx)
-    website. For example, for the airport IATA code "LTN", IATA website tells
-    us that the corresponding airport city is "London".
-
-    If this field is not populated, Google would display "London".
-
-    However, populating this field with a custom name (eg: "London Luton")
-    would override it.
+    official airport city name defined by IATA. Official IATA airport city
+    names can be found at IATA airport city names website. For example, for the
+    airport IATA code "LTN", IATA website tells us that the corresponding
+    airport city is "London". If this field is not populated, Google would
+    display "London". However, populating this field with a custom name (eg:
+    "London Luton") would override it.
     """
 
 
@@ -354,101 +336,66 @@ class FlightClass(BaseModel):
     localScheduledDepartureDateTime: str
     """
     Required. The scheduled date and time when the aircraft is expected to
-    depart the gate (not the runway)
-
-    Note: This field should not change too close to the departure time. For
-    updates to departure times (delays, etc), please set
-    `localEstimatedOrActualDepartureDateTime`.
-
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on departure airport.
+    depart the gate (not the runway) Note: This field should not change too
+    close to the departure time. For updates to departure times (delays, etc),
+    please set `localEstimatedOrActualDepartureDateTime`. This is an ISO 8601
+    extended format date/time without an offset. Time may be specified up to
+    millisecond precision. eg: `2027-03-05T06:30:00` This should be the local
+    date/time at the airport (not a UTC time). Google will reject the request
+    if UTC offset is provided. Time zones will be calculated by Google based on
+    departure airport.
     """
 
     localEstimatedOrActualDepartureDateTime: Optional[str] = None
     """
     The estimated time the aircraft plans to pull from the gate or the actual
     time the aircraft already pulled from the gate. Note: This is not the
-    runway time.
-
-    This field should be set if at least one of the below is true:
+    runway time. This field should be set if at least one of the below is true:
     - It differs from the scheduled time. Google will use it to calculate the
-      delay.
-    - The aircraft already pulled from the gate. Google will use it to inform
-      the user when the flight actually departed.
-    
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on departure airport.
+    delay. - The aircraft already pulled from the gate. Google will use it to
+    inform the user when the flight actually departed. This is an ISO 8601
+    extended format date/time without an offset. Time may be specified up to
+    millisecond precision. eg: `2027-03-05T06:30:00` This should be the local
+    date/time at the airport (not a UTC time). Google will reject the request
+    if UTC offset is provided. Time zones will be calculated by Google based on
+    departure airport.
     """
 
     localBoardingDateTime: Optional[str] = None
     """
-    The boarding time as it would be printed on the boarding pass.
-
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on departure airport.
+    The boarding time as it would be printed on the boarding pass. This is an
+    ISO 8601 extended format date/time without an offset. Time may be specified
+    up to millisecond precision. eg: `2027-03-05T06:30:00` This should be the
+    local date/time at the airport (not a UTC time). Google will reject the
+    request if UTC offset is provided. Time zones will be calculated by Google
+    based on departure airport.
     """
 
     localScheduledArrivalDateTime: Optional[str] = None
     """
     The scheduled time the aircraft plans to reach the destination gate (not
-    the runway).
-
-    Note: This field should not change too close to the flight time. For
-    updates to departure times (delays, etc), please set
-    `localEstimatedOrActualArrivalDateTime`.
-
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on arrival airport.
+    the runway). Note: This field should not change too close to the flight
+    time. For updates to departure times (delays, etc), please set
+    `localEstimatedOrActualArrivalDateTime`. This is an ISO 8601 extended
+    format date/time without an offset. Time may be specified up to millisecond
+    precision. eg: `2027-03-05T06:30:00` This should be the local date/time at
+    the airport (not a UTC time). Google will reject the request if UTC offset
+    is provided. Time zones will be calculated by Google based on arrival
+    airport.
     """
 
     localEstimatedOrActualArrivalDateTime: Optional[str] = None
     """
     The estimated time the aircraft plans to reach the destination gate (not
-    the runway) or the actual time it reached the gate.
-
-    This field should be set if at least one of the below is true:
-    - It differs from the scheduled time. Google will use it to calculate the
-      delay.
-    - The aircraft already arrived at the gate. Google will use it to inform
-      the user that the flight has arrived at the gate.
-
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on arrival airport.
+    the runway) or the actual time it reached the gate. This field should be
+    set if at least one of the below is true: - It differs from the scheduled
+    time. Google will use it to calculate the delay. - The aircraft already
+    arrived at the gate. Google will use it to inform the user that the flight
+    has arrived at the gate. This is an ISO 8601 extended format date/time
+    without an offset. Time may be specified up to millisecond precision. eg:
+    `2027-03-05T06:30:00` This should be the local date/time at the airport
+    (not a UTC time). Google will reject the request if UTC offset is provided.
+    Time zones will be calculated by Google based on arrival airport.
     """
 
     flightHeader: FlightHeader
@@ -468,12 +415,9 @@ class FlightClass(BaseModel):
 
     flightStatus: FlightStatus = FlightStatus.FLIGHT_STATUS_UNSPECIFIED
     """
-    Status of this flight.
-
-    If unset, Google will compute status based on data from other sources, such
-    as FlightStats, etc.
-
-    Note: Google-computed status will not be returned in API responses.
+    Status of this flight. If unset, Google will compute status based on data
+    from other sources, such as FlightStats, etc. Note: Google-computed status
+    will not be returned in API responses.
     """
 
     boardingAndSeatingPolicy: Optional[BoardingAndSeatingPolicy] = None
@@ -485,17 +429,12 @@ class FlightClass(BaseModel):
     localGateClosingDateTime: Optional[str] = None
     """
     The gate closing time as it would be printed on the boarding pass. Do not
-    set this field if you do not want to print it in the boarding pass.
-
-    This is an ISO 8601 extended format date/time without an offset. Time may
-    be specified up to millisecond precision.
-
-    eg: `2027-03-05T06:30:00`
-
-    This should be the local date/time at the airport (not a UTC time).
-
-    Google will reject the request if UTC offset is provided. Time zones will
-    be calculated by Google based on departure airport.
+    set this field if you do not want to print it in the boarding pass. This is
+    an ISO 8601 extended format date/time without an offset. Time may be
+    specified up to millisecond precision. eg: `2027-03-05T06:30:00` This
+    should be the local date/time at the airport (not a UTC time). Google will
+    reject the request if UTC offset is provided. Time zones will be calculated
+    by Google based on departure airport.
     """
 
     classTemplateInfo: Optional[ClassTemplateInfo] = None
@@ -519,10 +458,10 @@ class FlightClass(BaseModel):
     id: str
     """
     Required. The unique identifier for a class. This ID must be unique across
-    all classes from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
-    chosen by you. Your unique identifier should only include alphanumeric
-    characters, '.', '_', or '-'.
+    all classes from an issuer. This value should follow the format issuer ID.
+    identifier where the former is issued by Google and latter is chosen by
+    you. Your unique identifier should only include alphanumeric characters,
+    '.', '_', or '-'.
     """
 
     version: Annotated[
@@ -575,17 +514,13 @@ class FlightClass(BaseModel):
     """
     Required. The status of the class. This field can be set to `draft` or
     `underReview` using the insert, patch, or update API calls. Once the review
-    state is changed from `draft` it may not be changed back to `draft`.
-
-    You should keep this field to `draft` when the class is under development.
-    A `draft` class cannot be used to create any object.
-
-    You should set this field to `underReview` when you believe the class is
-    ready for use. The platform will automatically set this field to `approved`
-    and it can be immediately used to create or migrate objects.
-
-    When updating an already `approved` class you should keep setting this
-    field to `underReview`.
+    state is changed from `draft` it may not be changed back to `draft`. You
+    should keep this field to `draft` when the class is under development. A
+    `draft` class cannot be used to create any object. You should set this
+    field to `underReview` when you believe the class is ready for use. The
+    platform will automatically set this field to `approved` and it can be
+    immediately used to create or migrate objects. When updating an already
+    `approved` class you should keep setting this field to `underReview`.
     """
 
     review: Optional[Review] = None
@@ -627,10 +562,9 @@ class FlightClass(BaseModel):
 
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
-    must have at least one Smart Tap key configured.
-
-    The `enableSmartTap` and object level `smartTapRedemptionLevel` fields must
-    also be set up correctly in order for a pass to support Smart Tap.
+    must have at least one Smart Tap key configured. The `enableSmartTap` and
+    object level `smartTapRedemptionLevel` fields must also be set up correctly
+    in order for a pass to support Smart Tap.
     """
 
     countryCode: Optional[str] = None
@@ -665,14 +599,14 @@ class FlightClass(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     localizedIssuerName: Optional[LocalizedString] = None
     """
-    Translated strings for the issuerName. Recommended maximum length is 20
+    Translated strings for the issuer_name. Recommended maximum length is 20
     characters to ensure full string is displayed on smaller screens.
     """
 
@@ -728,8 +662,8 @@ class FlightClass(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the class. For a pass
-    only ten will be displayed, prioritizing those from the object.
+    Optional value added module data. Maximum of fifteen on the class. For a
+    pass only fifteen will be displayed, prioritizing those from the object.
     """
 
     merchantLocations: list[MerchantLocation] = Field(default_factory=list)

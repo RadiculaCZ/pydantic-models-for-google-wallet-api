@@ -5,6 +5,9 @@ from enum import Enum
 
 class State(str, Enum):
     STATE_UNSPECIFIED = "STATE_UNSPECIFIED"
+    """
+    Default value.
+    """
 
     ACTIVE = "ACTIVE"
     """
@@ -17,6 +20,9 @@ class State(str, Enum):
     """
 
     COMPLETED = "COMPLETED"
+    """
+    Object has completed it's lifecycle.
+    """
 
     completed = "completed"
     """
@@ -34,6 +40,9 @@ class State(str, Enum):
     """
 
     INACTIVE = "INACTIVE"
+    """
+    Object is no longer valid
+    """
 
     inactive = "inactive"
     """

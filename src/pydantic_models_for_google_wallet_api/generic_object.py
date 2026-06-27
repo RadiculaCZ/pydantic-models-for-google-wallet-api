@@ -35,64 +35,65 @@ class GenericType(str, Enum):
 
     GENERIC_SEASON_PASS = "GENERIC_SEASON_PASS"
     """
-    Season pass
+    Represents a season pass.
     """
 
     GENERIC_UTILITY_BILLS = "GENERIC_UTILITY_BILLS"
     """
-    Utility bills
+    Represents a utility bill.
     """
 
     GENERIC_PARKING_PASS = "GENERIC_PARKING_PASS"
     """
-    Parking pass
+    Represents a parking pass.
     """
 
     GENERIC_VOUCHER = "GENERIC_VOUCHER"
     """
-    Voucher
+    Represents a voucher.
     """
 
     GENERIC_GYM_MEMBERSHIP = "GENERIC_GYM_MEMBERSHIP"
     """
-    Gym membership cards
+    Represents a gym membership card.
     """
 
     GENERIC_LIBRARY_MEMBERSHIP = "GENERIC_LIBRARY_MEMBERSHIP"
     """
-    Library membership cards
+    Represents a library card.
     """
 
     GENERIC_RESERVATIONS = "GENERIC_RESERVATIONS"
     """
-    Reservations
+    Represents a reservation.
     """
 
     GENERIC_AUTO_INSURANCE = "GENERIC_AUTO_INSURANCE"
     """
-    Auto-insurance cards
+    Represents an auto-insurance card.
     """
 
     GENERIC_HOME_INSURANCE = "GENERIC_HOME_INSURANCE"
     """
-    Home-insurance cards
+    Represents a home-insurance card.
     """
 
     GENERIC_ENTRY_TICKET = "GENERIC_ENTRY_TICKET"
     """
-    Entry tickets
+    Represents an entry ticket.
     """
 
     GENERIC_RECEIPT = "GENERIC_RECEIPT"
     """
-    Receipts
+    Represents a receipt.
     """
 
     GENERIC_LOYALTY_CARD = "GENERIC_LOYALTY_CARD"
     """
-    Loyalty cards. Please note that it is advisable to use a dedicated Loyalty
-    card pass type instead of this generic type. A dedicated loyalty card pass
-    type offers more features and functionality than a generic pass type.
+    Represents a loyalty card. Please note that it is advisable to use a
+    dedicated Loyalty card pass type instead of this generic type. A dedicated
+    loyalty card pass type offers more features and functionality than a
+    generic pass type.
     """
 
     GENERIC_BUSINESS_CARD = "GENERIC_BUSINESS_CARD"
@@ -127,7 +128,7 @@ class GenericType(str, Enum):
 
     GENERIC_OTHER = "GENERIC_OTHER"
     """
-    Other type
+    Represents another type of generic pass.
     """
 
 
@@ -183,7 +184,7 @@ class GenericObject(BaseModel):
 
     genericType: GenericType
     """
-    Specify which GenericType the card belongs to.
+    Specify which `GenericType` the card belongs to.
     """
 
     cardTitle: LocalizedString
@@ -237,10 +238,9 @@ class GenericObject(BaseModel):
     classId: str
     """
     Required. The class associated with this object. The class must be of the
-    same type as this object, must already exist, and must be approved.
-
-    Class IDs should follow the format `issuerID.identifier` where `issuerID`
-    is issued by Google and `identifier` is chosen by you.
+    same type as this object, must already exist, and must be approved. Class
+    IDs should follow the format `issuerID.identifier` where `issuerID` is
+    issued by Google and `identifier` is chosen by you.
     """
 
     barcode: Optional[Barcode] = None
@@ -277,7 +277,7 @@ class GenericObject(BaseModel):
 
     linksModuleData: Optional[LinksModuleData] = None
     """
-    Links module data. If linksModuleData is also defined on the class, both
+    Links module data. If `linksModuleData` is also defined on the class, both
     will be displayed. The maximum number of these fields displayed is 10 from
     class and 10 from object.
     """
@@ -351,26 +351,25 @@ class GenericObject(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the object.
+    Optional value added module data. Maximum of fifteen on the object. For a
+    pass only fifteen will be displayed.
     """
 
     linkedObjectIds: list[str] = Field(default_factory=list)
     """
-    linkedObjectIds are a list of other objects such as event ticket, loyalty,
-    offer, generic, giftcard, transit and boarding pass that should be
+    linked_object_ids are a list of other objects such as event ticket,
+    loyalty, offer, generic, giftcard, transit and boarding pass that should be
     automatically attached to this generic object. If a user had saved this
-    generic card, then these linkedObjectIds would be automatically pushed to
+    generic card, then these linked_object_ids would be automatically pushed to
     the user's wallet (unless they turned off the setting to receive such
-    linked passes).
-
-    Make sure that objects present in linkedObjectIds are already inserted - if
-    not, calls would fail. Once linked, the linked objects cannot be unlinked.
-    You cannot link objects belonging to another issuer. There is a limit to
-    the number of objects that can be linked to a single object. After the
-    limit is reached, new linked objects in the call will be ignored silently.
-
-    Object IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and the latter is chosen by you.
+    linked passes). Make sure that objects present in linked_object_ids are
+    already inserted - if not, calls would fail. Once linked, the linked
+    objects cannot be unlinked. You cannot link objects belonging to another
+    issuer. There is a limit to the number of objects that can be linked to a
+    single object. After the limit is reached, new linked objects in the call
+    will be ignored silently. Object IDs should follow the format issuer ID.
+    identifier where the former is issued by Google and the latter is chosen by
+    you.
     """
 
     merchantLocations: list[MerchantLocation] = Field(default_factory=list)

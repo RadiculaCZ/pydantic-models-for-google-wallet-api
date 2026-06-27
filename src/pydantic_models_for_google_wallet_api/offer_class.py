@@ -132,7 +132,7 @@ class OfferClass(BaseModel):
 
     localizedFinePrint: Optional[LocalizedString] = None
     """
-    Translated strings for the finePrint.
+    Translated strings for the fine_print.
     """
 
     shortTitle: Optional[str] = None
@@ -157,10 +157,10 @@ class OfferClass(BaseModel):
     id: str
     """
     Required. The unique identifier for a class. This ID must be unique across
-    all classes from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
-    chosen by you. Your unique identifier should only include alphanumeric
-    characters, '.', '_', or '-'.
+    all classes from an issuer. This value should follow the format issuer ID.
+    identifier where the former is issued by Google and latter is chosen by
+    you. Your unique identifier should only include alphanumeric characters,
+    '.', '_', or '-'.
     """
 
     version: Annotated[
@@ -214,17 +214,13 @@ class OfferClass(BaseModel):
     Required. The status of the class. This field can be set to `draft` or The
     status of the class. This field can be set to `draft` or `underReview`
     using the insert, patch, or update API calls. Once the review state is
-    changed from `draft` it may not be changed back to `draft`.
-
-    You should keep this field to `draft` when the class is under development.
-    A `draft` class cannot be used to create any object.
-
-    You should set this field to `underReview` when you believe the class is
-    ready for use. The platform will automatically set this field to `approved`
-    and it can be immediately used to create or migrate objects.
-
-    When updating an already `approved` class you should keep setting this
-    field to `underReview`.
+    changed from `draft` it may not be changed back to `draft`. You should keep
+    this field to `draft` when the class is under development. A `draft` class
+    cannot be used to create any object. You should set this field to
+    `underReview` when you believe the class is ready for use. The platform
+    will automatically set this field to `approved` and it can be immediately
+    used to create or migrate objects. When updating an already `approved`
+    class you should keep setting this field to `underReview`.
     """
 
     review: Optional[Review] = None
@@ -266,10 +262,9 @@ class OfferClass(BaseModel):
 
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
-    must have at least one Smart Tap key configured.
-
-    The `enableSmartTap` and object level `smartTapRedemptionLevel` fields must
-    also be set up correctly in order for a pass to support Smart Tap.
+    must have at least one Smart Tap key configured. The `enableSmartTap` and
+    object level `smartTapRedemptionLevel` fields must also be set up correctly
+    in order for a pass to support Smart Tap.
     """
 
     countryCode: Optional[str] = None
@@ -304,14 +299,14 @@ class OfferClass(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     localizedIssuerName: Optional[LocalizedString] = None
     """
-    Translated strings for the issuerName. Recommended maximum length is 20
+    Translated strings for the issuer_name. Recommended maximum length is 20
     characters to ensure full string is displayed on smaller screens.
     """
 
@@ -373,8 +368,8 @@ class OfferClass(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the class. For a pass
-    only ten will be displayed, prioritizing those from the object.
+    Optional value added module data. Maximum of fifteen on the class. For a
+    pass only fifteen will be displayed, prioritizing those from the object.
     """
 
     merchantLocations: list[MerchantLocation] = Field(

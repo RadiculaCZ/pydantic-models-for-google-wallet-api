@@ -46,7 +46,8 @@ class Image(BaseModel):
 
     sourceUri: ImageUri
     """
-    The URI for the image.
+    A URI for the image. Either this or private_image_id should be set.
+    Requests setting both or neither will be rejected.
     """
 
     privateImageId: Optional[str] = None

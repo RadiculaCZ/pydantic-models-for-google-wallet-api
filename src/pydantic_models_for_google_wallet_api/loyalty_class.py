@@ -183,8 +183,8 @@ class LoyaltyClass(BaseModel):
 
     accountIdLabel: Optional[str] = None
     """
-    The account ID label, such as "Member ID." Recommended maximum length is
-    15 characters to ensure full string is displayed on smaller screens.
+    The account ID label, such as "Member ID." Recommended maximum length is 15
+    characters to ensure full string is displayed on smaller screens.
     """
 
     rewardsTierLabel: Optional[str] = None
@@ -201,32 +201,32 @@ class LoyaltyClass(BaseModel):
 
     localizedProgramName: Optional[LocalizedString] = None
     """
-    Translated strings for the programName. The app may display an ellipsis
+    Translated strings for the program_name. The app may display an ellipsis
     after the first 20 characters to ensure full string is displayed on smaller
     screens.
     """
 
     localizedAccountNameLabel: Optional[LocalizedString] = None
     """
-    Translated strings for the accountNameLabel. Recommended maximum length is
-    15 characters to ensure full string is displayed on smaller screens.
+    Translated strings for the account_name_label. Recommended maximum length
+    is 15 characters to ensure full string is displayed on smaller screens.
     """
 
     localizedAccountIdLabel: Optional[LocalizedString] = None
     """
-    Translated strings for the accountIdLabel. Recommended maximum length is 15
-    characters to ensure full string is displayed on smaller screens.
+    Translated strings for the account_id_label. Recommended maximum length is
+    15 characters to ensure full string is displayed on smaller screens.
     """
 
     localizedRewardsTierLabel: Optional[LocalizedString] = None
     """
-    Translated strings for the rewardsTierLabel. Recommended maximum length is
-    9 characters to ensure full string is displayed on smaller screens.
+    Translated strings for the rewards_tier_label. Recommended maximum length
+    is 9 characters to ensure full string is displayed on smaller screens.
     """
 
     localizedRewardsTier: Optional[LocalizedString] = None
     """
-    Translated strings for the rewardsTier. Recommended maximum length is 7
+    Translated strings for the rewards_tier. Recommended maximum length is 7
     characters to ensure full string is displayed on smaller screens.
     """
 
@@ -237,7 +237,7 @@ class LoyaltyClass(BaseModel):
 
     localizedSecondaryRewardsTierLabel: Optional[LocalizedString] = None
     """
-    Translated strings for the secondaryRewardsTierLabel.
+    Translated strings for the secondary_rewards_tier_label.
     """
 
     secondaryRewardsTier: Optional[str] = None
@@ -247,7 +247,7 @@ class LoyaltyClass(BaseModel):
 
     localizedSecondaryRewardsTier: Optional[LocalizedString] = None
     """
-    Translated strings for the secondaryRewardsTier.
+    Translated strings for the secondary_rewards_tier.
     """
 
     discoverableProgram: Optional[DiscoverableProgram] = None
@@ -265,10 +265,10 @@ class LoyaltyClass(BaseModel):
     id: str
     """
     Required. The unique identifier for a class. This ID must be unique across
-    all classes from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
-    chosen by you. Your unique identifier should only include alphanumeric
-    characters, '.', '_', or '-'.
+    all classes from an issuer. This value should follow the format issuer ID.
+    identifier where the former is issued by Google and latter is chosen by
+    you. Your unique identifier should only include alphanumeric characters,
+    '.', '_', or '-'.
     """
 
     version: Annotated[
@@ -321,17 +321,13 @@ class LoyaltyClass(BaseModel):
     """
     Required. The status of the class. This field can be set to `draft` or
     `underReview` using the insert, patch, or update API calls. Once the review
-    state is changed from `draft` it may not be changed back to `draft`.
-
-    You should keep this field to `draft` when the class is under development.
-    A `draft` class cannot be used to create any object.
-
-    You should set this field to `underReview` when you believe the class is
-    ready for use. The platform will automatically set this field to `approved`
-    and it can be immediately used to create or migrate objects.
-
-    When updating an already `approved` class you should keep setting this
-    field to `underReview`.
+    state is changed from `draft` it may not be changed back to `draft`. You
+    should keep this field to `draft` when the class is under development. A
+    `draft` class cannot be used to create any object. You should set this
+    field to `underReview` when you believe the class is ready for use. The
+    platform will automatically set this field to `approved` and it can be
+    immediately used to create or migrate objects. When updating an already
+    `approved` class you should keep setting this field to `underReview`.
     """
 
     review: Optional[Review] = None
@@ -373,11 +369,10 @@ class LoyaltyClass(BaseModel):
 
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
-    must have at least one Smart Tap key configured.
-
-    The `enableSmartTap` and one of object level `smartTapRedemptionValue`,
-    `barcode.value`, or `accountId` fields must also be set up correctly in
-    order for a pass to support Smart Tap.
+    must have at least one Smart Tap key configured. The `enableSmartTap` and
+    one of object level `smartTapRedemptionValue`, barcode.value`, or
+    `accountId` fields must also be set up correctly in order for a pass to
+    support Smart Tap.
     """
 
     countryCode: Optional[str] = None
@@ -404,7 +399,7 @@ class LoyaltyClass(BaseModel):
     enableSmartTap: bool = False
     """
     Identifies whether this class supports Smart Tap. The `redemptionIssuers`
-    and one of object level `smartTapRedemptionLevel`, `barcode.value`, or
+    and one of object level `smartTapRedemptionLevel`, barcode.value`, or
     `accountId` fields must also be set up correctly in order for a pass to
     support Smart Tap.
     """
@@ -413,14 +408,14 @@ class LoyaltyClass(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     localizedIssuerName: Optional[LocalizedString] = None
     """
-    Translated strings for the issuerName. Recommended maximum length is 20
+    Translated strings for the issuer_name. Recommended maximum length is 20
     characters to ensure full string is displayed on smaller screens.
     """
 
@@ -482,8 +477,8 @@ class LoyaltyClass(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the class. For a pass
-    only ten will be displayed, prioritizing those from the object.
+    Optional value added module data. Maximum of fifteen on the class. For a
+    pass only fifteen will be displayed, prioritizing those from the object.
     """
 
     merchantLocations: list[MerchantLocation] = Field(

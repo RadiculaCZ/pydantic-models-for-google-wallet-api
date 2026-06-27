@@ -20,16 +20,12 @@ class TimeInterval(BaseModel):
 
     start: Optional[DateTime] = None
     """
-    Start time of the interval.
-
-    Offset is not required. If an offset is provided and `end` time is set,
-    `end` must also include an offset.
+    Start time of the interval. Offset is not required. If an offset is
+    provided and `end` time is set, `end` must also include an offset.
     """
 
     end: Optional[DateTime] = None
     """
-    End time of the interval.
-
-    Offset is not required. If an offset is provided and `start` time is set,
-    `start` must also include an offset.
+    End time of the interval. Offset is not required. If an offset is provided
+    and `start` time is set, `start` must also include an offset.
     """

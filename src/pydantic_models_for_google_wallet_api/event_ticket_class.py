@@ -42,17 +42,14 @@ class EventVenue(BaseModel):
 
     name: LocalizedString
     """
-    The name of the venue, such as "AT&T Park".
-
-    This is required.
+    The name of the venue, such as "AT&T Park". This is required.
     """
 
     address: LocalizedString
     """
-    The address of the venue, such as "24 Willie Mays Plaza\nSan Francisco, CA
-    94107". Address lines are separated by line feed (`\n`) characters.
-
-    This is required.
+    The address of the venue, such as "24 Willie Mays Plaza\\nSan Francisco, CA
+    94107". Address lines are separated by line feed (`\\n`) characters. This is
+    required.
     """
 
 
@@ -183,128 +180,93 @@ class EventDateTime(BaseModel):
 
     doorsOpen: Optional[str] = None
     """
-    The date/time when the doors open at the venue.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    The date/time when the doors open at the venue. This is an ISO 8601
+    extended format date/time, with or without an offset. Time may be specified
+    up to nanosecond precision. Offsets may be specified with seconds precision
+    (even though offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    The portion of the date/time without the offset is considered the "local
-    date/time". This should be the local date/time at the venue. For example,
-    if the event occurs at the 20th hour of June 5th, 2018 at the venue, the
-    local date/time portion should be `2018-06-05T20:00:00`. If the local
-    date/time at the venue is 4 hours before UTC, an offset of `-04:00` may be
-    appended.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. The portion of
+    the date/time without the offset is considered the "local date/time". This
+    should be the local date/time at the venue. For example, if the event
+    occurs at the 20th hour of June 5th, 2018 at the venue, the local date/time
+    portion should be `2018-06-05T20:00:00`. If the local date/time at the
+    venue is 4 hours before UTC, an offset of `-04:00` may be appended. Without
+    offset information, some rich features may not be available.
     """
 
     start: Optional[str] = None
     """
     The date/time when the event starts. If the event spans multiple days, it
-    should be the start date/time on the first day.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    should be the start date/time on the first day. This is an ISO 8601
+    extended format date/time, with or without an offset. Time may be specified
+    up to nanosecond precision. Offsets may be specified with seconds precision
+    (even though offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    The portion of the date/time without the offset is considered the "local
-    date/time". This should be the local date/time at the venue. For example,
-    if the event occurs at the 20th hour of June 5th, 2018 at the venue, the
-    local date/time portion should be `2018-06-05T20:00:00`. If the local
-    date/time at the venue is 4 hours before UTC, an offset of `-04:00` may be
-    appended.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. The portion of
+    the date/time without the offset is considered the "local date/time". This
+    should be the local date/time at the venue. For example, if the event
+    occurs at the 20th hour of June 5th, 2018 at the venue, the local date/time
+    portion should be `2018-06-05T20:00:00`. If the local date/time at the
+    venue is 4 hours before UTC, an offset of `-04:00` may be appended. Without
+    offset information, some rich features may not be available.
     """
 
     end: Optional[str] = None
     """
     The date/time when the event ends. If the event spans multiple days, it
-    should be the end date/time on the last day.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    should be the end date/time on the last day. This is an ISO 8601 extended
+    format date/time, with or without an offset. Time may be specified up to
+    nanosecond precision. Offsets may be specified with seconds precision (even
+    though offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    The portion of the date/time without the offset is considered the "local
-    date/time". This should be the local date/time at the venue. For example,
-    if the event occurs at the 20th hour of June 5th, 2018 at the venue, the
-    local date/time portion should be `2018-06-05T20:00:00`. If the local
-    date/time at the venue is 4 hours before UTC, an offset of `-04:00` may be
-    appended.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. The portion of
+    the date/time without the offset is considered the "local date/time". This
+    should be the local date/time at the venue. For example, if the event
+    occurs at the 20th hour of June 5th, 2018 at the venue, the local date/time
+    portion should be `2018-06-05T20:00:00`. If the local date/time at the
+    venue is 4 hours before UTC, an offset of `-04:00` may be appended. Without
+    offset information, some rich features may not be available.
     """
 
     doorsOpenLabel: DoorsOpenLabel = DoorsOpenLabel.DOORS_OPEN_LABEL_UNSPECIFIED
     """
     The label to use for the doors open value (`doorsOpen`) on the card detail
     view. Each available option maps to a set of localized strings, so that
-    translations are shown to the user based on their locale.
-
-    Both `doorsOpenLabel` and `customDoorsOpenLabel` may not be set. If neither
-    is set, the label will default to "Doors Open", localized. If the doors
-    open field is unset, this label will not be used.
+    translations are shown to the user based on their locale. Both
+    `doorsOpenLabel` and `customDoorsOpenLabel` may not be set. If neither is
+    set, the label will default to "Doors Open", localized. If the doors open
+    field is unset, this label will not be used.
     """
 
     customDoorsOpenLabel: Optional[LocalizedString] = None
     """
     A custom label to use for the doors open value (`doorsOpen`) on the card
     detail view. This should only be used if the default "Doors Open" label or
-    one of the `doorsOpenLabel` options is not sufficient.
-
-    Both `doorsOpenLabel` and `customDoorsOpenLabel` may not be set. If neither
-    is set, the label will default to "Doors Open", localized. If the doors
-    open field is unset, this label will not be used.
+    one of the `doorsOpenLabel` options is not sufficient. Both
+    `doorsOpenLabel` and `customDoorsOpenLabel` may not be set. If neither is
+    set, the label will default to "Doors Open", localized. If the doors open
+    field is unset, this label will not be used.
     """
 
 
@@ -329,15 +291,12 @@ class EventTicketClass(BaseModel):
     """
     The ID of the event. This ID should be unique for every event in an
     account. It is used to group tickets together if the user has saved
-    multiple tickets for the same event. It can be at most 64 characters.
-
-    If provided, the grouping will be stable. Be wary of unintentional
-    collision to avoid grouping tickets that should not be grouped. If you use
-    only one class per event, you can simply set this to the `classId` (with or
-    without the issuer ID portion).
-
-    If not provided, the platform will attempt to use other data to group
-    tickets (potentially unstable).
+    multiple tickets for the same event. It can be at most 64 characters. If
+    provided, the grouping will be stable. Be wary of unintentional collision
+    to avoid grouping tickets that should not be grouped. If you use only one
+    class per event, you can simply set this to the `classId` (with or without
+    the issuer ID portion). If not provided, the platform will attempt to use
+    other data to group tickets (potentially unstable).
     """
 
     logo: Image
@@ -363,10 +322,9 @@ class EventTicketClass(BaseModel):
     The label to use for the confirmation code value
     (`eventTicketObject.reservationInfo.confirmationCode`) on the card detail
     view. Each available option maps to a set of localized strings, so that
-    translations are shown to the user based on their locale.
-
-    Both `confirmationCodeLabel` and `customConfirmationCodeLabel` may not be
-    set. If neither is set, the label will default to "Confirmation Code",
+    translations are shown to the user based on their locale. Both
+    `confirmationCodeLabel` and `customConfirmationCodeLabel` may not be set.
+    If neither is set, the label will default to "Confirmation Code",
     localized. If the confirmation code field is unset, this label will not be
     used.
     """
@@ -376,10 +334,9 @@ class EventTicketClass(BaseModel):
     A custom label to use for the confirmation code value
     (`eventTicketObject.reservationInfo.confirmationCode`) on the card detail
     view. This should only be used if the default "Confirmation Code" label or
-    one of the `confirmationCodeLabel` options is not sufficient.
-
-    Both `confirmationCodeLabel` and `customConfirmationCodeLabel` may not be
-    set. If neither is set, the label will default to "Confirmation Code",
+    one of the `confirmationCodeLabel` options is not sufficient. Both
+    `confirmationCodeLabel` and `customConfirmationCodeLabel` may not be set.
+    If neither is set, the label will default to "Confirmation Code",
     localized. If the confirmation code field is unset, this label will not be
     used.
     """
@@ -389,7 +346,6 @@ class EventTicketClass(BaseModel):
     The label to use for the seat value (`eventTicketObject.seatInfo.seat`) on
     the card detail view. Each available option maps to a set of localized
     strings, so that translations are shown to the user based on their locale.
-
     Both `seatLabel` and `customSeatLabel` may not be set. If neither is set,
     the label will default to "Seat", localized. If the seat field is unset,
     this label will not be used.
@@ -400,11 +356,9 @@ class EventTicketClass(BaseModel):
     A custom label to use for the seat value
     (`eventTicketObject.seatInfo.seat`) on the card detail view. This should
     only be used if the default "Seat" label or one of the `seatLabel` options
-    is not sufficient.
-
-    Both `seatLabel` and `customSeatLabel` may not be set. If neither is set,
-    the label will default to "Seat", localized. If the seat field is unset,
-    this label will not be used.
+    is not sufficient. Both `seatLabel` and `customSeatLabel` may not be set.
+    If neither is set, the label will default to "Seat", localized. If the seat
+    field is unset, this label will not be used.
     """
 
     rowLabel: RowLabel = RowLabel.ROW_LABEL_UNSPECIFIED
@@ -412,7 +366,6 @@ class EventTicketClass(BaseModel):
     The label to use for the row value (`eventTicketObject.seatInfo.row`) on
     the card detail view. Each available option maps to a set of localized
     strings, so that translations are shown to the user based on their locale.
-
     Both `rowLabel` and `customRowLabel` may not be set. If neither is set, the
     label will default to "Row", localized. If the row field is unset, this
     label will not be used.
@@ -422,11 +375,10 @@ class EventTicketClass(BaseModel):
     """
     A custom label to use for the row value (`eventTicketObject.seatInfo.row`)
     on the card detail view. This should only be used if the default "Row"
-    label or one of the `rowLabel` options is not sufficient.
-
-    Both `rowLabel` and `customRowLabel` may not be set. If neither is set, the
-    label will default to "Row", localized. If the row field is unset, this
-    label will not be used.
+    label or one of the `rowLabel` options is not sufficient. Both `rowLabel`
+    and `customRowLabel` may not be set. If neither is set, the label will
+    default to "Row", localized. If the row field is unset, this label will not
+    be used.
     """
 
     sectionLabel: SectionLabel = SectionLabel.SECTION_LABEL_UNSPECIFIED
@@ -434,11 +386,10 @@ class EventTicketClass(BaseModel):
     The label to use for the section value
     (`eventTicketObject.seatInfo.section`) on the card detail view. Each
     available option maps to a set of localized strings, so that translations
-    are shown to the user based on their locale.
-
-    Both `sectionLabel` and `customSectionLabel` may not be set. If neither is
-    set, the label will default to "Section", localized. If the section field
-    is unset, this label will not be used.
+    are shown to the user based on their locale. Both `sectionLabel` and
+    `customSectionLabel` may not be set. If neither is set, the label will
+    default to "Section", localized. If the section field is unset, this label
+    will not be used.
     """
 
     customSectionLabel: Optional[LocalizedString] = None
@@ -446,11 +397,9 @@ class EventTicketClass(BaseModel):
     A custom label to use for the section value
     (`eventTicketObject.seatInfo.section`) on the card detail view. This should
     only be used if the default "Section" label or one of the `sectionLabel`
-    options is not sufficient.
-
-    Both `sectionLabel` and `customSectionLabel` may not be set. If neither is
-    set, the label will default to "Section", localized. If the section field
-    is unset, this label will not be used.
+    options is not sufficient. Both `sectionLabel` and `customSectionLabel` may
+    not be set. If neither is set, the label will default to "Section",
+    localized. If the section field is unset, this label will not be used.
     """
 
     gateLabel: GateLabel = GateLabel.GATE_LABEL_UNSPECIFIED
@@ -458,7 +407,6 @@ class EventTicketClass(BaseModel):
     The label to use for the gate value (`eventTicketObject.seatInfo.gate`) on
     the card detail view. Each available option maps to a set of localized
     strings, so that translations are shown to the user based on their locale.
-
     Both `gateLabel` and `customGateLabel` may not be set. If neither is set,
     the label will default to "Gate", localized. If the gate field is unset,
     this label will not be used.
@@ -469,11 +417,9 @@ class EventTicketClass(BaseModel):
     A custom label to use for the gate value
     (`eventTicketObject.seatInfo.gate`) on the card detail view. This should
     only be used if the default "Gate" label or one of the `gateLabel` options
-    is not sufficient.
-
-    Both `gateLabel` and `customGateLabel` may not be set. If neither is set,
-    the label will default to "Gate", localized. If the gate field is unset,
-    this label will not be used.
+    is not sufficient. Both `gateLabel` and `customGateLabel` may not be set.
+    If neither is set, the label will default to "Gate", localized. If the gate
+    field is unset, this label will not be used.
     """
 
     finePrint: Optional[LocalizedString] = None
@@ -490,10 +436,10 @@ class EventTicketClass(BaseModel):
     id: str
     """
     Required. The unique identifier for a class. This ID must be unique across
-    all classes from an issuer. This value should follow the format
-    `issuer ID`.`identifier` where the former is issued by Google and latter is
-    chosen by you. Your unique identifier should only include alphanumeric
-    characters, '.', '_', or '-'.
+    all classes from an issuer. This value should follow the format issuer ID.
+    identifier where the former is issued by Google and latter is chosen by
+    you. Your unique identifier should only include alphanumeric characters,
+    '.', '_', or '-'.
     """
 
     version: Annotated[
@@ -549,18 +495,14 @@ class EventTicketClass(BaseModel):
     reviewStatus: ReviewStatus
     """
     Required. The status of the class. This field can be set to `draft` or
-    `underReview` using the insert, patch, or update API calls. Once the
-    review state is changed from `draft` it may not be changed back to `draft`.
-
-    You should keep this field to `draft` when the class is under development.
-    A `draft` class cannot be used to create any object.
-
-    You should set this field to `underReview` when you believe the class is
-    ready for use. The platform will automatically set this field to `approved`
-    and it can be immediately used to create or migrate objects.
-
-    When updating an already approved class you should keep setting this field
-    to `underReview`.
+    `underReview` using the insert, patch, or update API calls. Once the review
+    state is changed from `draft` it may not be changed back to `draft`. You
+    should keep this field to `draft` when the class is under development. A
+    `draft` class cannot be used to create any object. You should set this
+    field to `underReview` when you believe the class is ready for use. The
+    platform will automatically set this field to `approved` and it can be
+    immediately used to create or migrate objects. When updating an already
+    `approved` class you should keep setting this field to `underReview`.
     """
 
     review: Optional[Review] = None
@@ -608,10 +550,9 @@ class EventTicketClass(BaseModel):
 
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
-    must have at least one Smart Tap key configured.
-
-    The `enableSmartTap` and object level `smartTapRedemptionLevel` fields must
-    also be set up correctly in order for a pass to support Smart Tap.
+    must have at least one Smart Tap key configured. The `enableSmartTap` and
+    object level `smartTapRedemptionLevel` fields must also be set up correctly
+    in order for a pass to support Smart Tap.
     """
 
     countryCode: Optional[str] = None
@@ -646,14 +587,14 @@ class EventTicketClass(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     localizedIssuerName: Optional[LocalizedString] = None
     """
-    Translated strings for the issuerName. Recommended maximum length is 20
+    Translated strings for the issuer_name. Recommended maximum length is 20
     characters to ensure full string is displayed on smaller screens.
     """
 
@@ -714,8 +655,8 @@ class EventTicketClass(BaseModel):
         default_factory=list,
     )
     """
-    Optional value added module data. Maximum of ten on the class. For a pass
-    only ten will be displayed, prioritizing those from the object.
+    Optional value added module data. Maximum of fifteen on the class. For a
+    pass only fifteen will be displayed, prioritizing those from the object.
     """
 
     merchantLocations: list[MerchantLocation] = Field(

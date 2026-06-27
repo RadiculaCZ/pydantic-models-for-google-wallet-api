@@ -9,6 +9,11 @@ from .localized_string import LocalizedString
 
 
 class LabelValue(BaseModel):
+    """
+    A pair of text strings to be displayed in the details view. Note we no
+    longer display LabelValue/LabelValueRow as a table, instead a list of
+    items.
+    """
     label: str
     """
     The label for a specific row and column. Recommended maximum is 15

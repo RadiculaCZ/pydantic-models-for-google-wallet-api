@@ -21,6 +21,9 @@ from .transit_object import TransitObject
 
 
 class JwtResource(BaseModel):
+    """
+    A JWT representation of a pass.
+    """
     jwt: str
     """
     Required. A string representing a JWT of the format described at

@@ -45,7 +45,8 @@ class BarcodeType(str, Enum):
 
     codabar = "codabar"
     """
-    Legacy alias for `CODABAR`. Deprecated. Not supported for Rotating Barcodes.
+    Legacy alias for `CODABAR`. Deprecated. Not supported for Rotating
+    Barcodes.
     """
 
     DATA_MATRIX = "DATA_MATRIX"

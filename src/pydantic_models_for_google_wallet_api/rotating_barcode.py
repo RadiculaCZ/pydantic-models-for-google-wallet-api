@@ -60,8 +60,7 @@ class RotatingBarcodeTotpDetails(BaseModel):
     parameters: list[RotatingBarcodeTotpDetailsTotpParameters] = []
     """
     The TOTP parameters for each of the {totp_value_*} substitutions. The
-    RotatingBarcodeTotpDetailsTotpParameters at index n is used for the
-    {totp_value_n} substitution.
+    TotpParameters at index n is used for the {totp_value_n} substitution.
     """
 
 
@@ -73,18 +72,12 @@ class RotatingBarcodeValues(BaseModel):
     startDateTime: str  # See DateTime type as well
     """
     Required. The date/time the first barcode is valid from. Barcodes will be
-    rotated through using periodMillis defined on the object's
-    RotatingBarcodeValueInfo.
-
-    This is an ISO 8601 extended format date/time, with an offset. Time may be
-    specified up to nanosecond precision. Offsets may be specified with seconds
-    precision (even though offset seconds is not part of ISO 8601).
-
-    For example:
-
-    `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
+    rotated through using period_millis defined on the object's
+    RotatingBarcodeValueInfo. This is an ISO 8601 extended format date/time,
+    with an offset. Time may be specified up to nanosecond precision. Offsets
+    may be specified with seconds precision (even though offset seconds is not
+    part of ISO 8601). For example: `1985-04-12T23:20:50.52Z` would be 20
+    minutes and 50.52 seconds after the 23rd hour of April 12th, 1985 in UTC.
     `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
     the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
     as the above example). If the event were in New York, this would be the
@@ -124,13 +117,11 @@ class RotatingBarcode(BaseModel):
     valuePattern: str
     """
     String encoded barcode value. This string supports the following
-    substitutions:
-    * {totp_value_n}: Replaced with the TOTP value (see
-      TotpDetails.parameters).
-    * {totp_timestamp_millis}: Replaced with the timestamp (millis since epoch)
-      at which the barcode was generated.
-    * {totp_timestamp_seconds}: Replaced with the timestamp (seconds since
-      epoch) at which the barcode was generated.
+    substitutions: * {totp_value_n}: Replaced with the TOTP value (see
+    TotpDetails.parameters). * {totp_timestamp_millis}: Replaced with the
+    timestamp (millis since epoch) at which the barcode was generated. *
+    {totp_timestamp_seconds}: Replaced with the timestamp (seconds since epoch)
+    at which the barcode was generated.
     """
 
     totpDetails: RotatingBarcodeTotpDetails

@@ -43,7 +43,7 @@ class MessageType(str, Enum):
 
 class Message(BaseModel):
     """
-    A message that will be displayed with a Valuable.
+    A message that will be displayed with a Valuable
     """
 
     kind: Annotated[

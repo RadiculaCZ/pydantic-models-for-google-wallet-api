@@ -720,7 +720,7 @@ class Media(BaseModel):
 
     isPotentialRetry: Optional[bool] = None
     """
-    `is_potential_retry` is set false only when Scotty is certain that it has
+    |is_potential_retry| is set false only when Scotty is certain that it has
     not sent the request before. When a client resumes an upload, this field
     must be set true in agent calls, because Scotty cannot be certain that it
     has never sent the request before due to potential failure in the session
@@ -750,12 +750,11 @@ class Media(BaseModel):
     """
     uint32 format
 
-    For Scotty Uploads: Scotty-provided hashes for uploads
-    
-    For Scotty Downloads: (WARNING: DO NOT USE WITHOUT PERMISSION FROM THE
-    SCOTTY TEAM.) A Hash provided by the agent to be used to verify the data
-    being downloaded. Currently only supported for inline payloads. Further,
-    only crc32c_hash is currently supported.
+    For Scotty Uploads: Scotty-provided hashes for uploads For Scotty
+    Downloads: (WARNING: DO NOT USE WITHOUT PERMISSION FROM THE SCOTTY TEAM.) A
+    Hash provided by the agent to be used to verify the data being downloaded.
+    Currently only supported for inline payloads. Further, only crc32c_hash is
+    currently supported.
     """
 
     hash: Annotated[Optional[str], deprecated("This item is deprecated!")] = None

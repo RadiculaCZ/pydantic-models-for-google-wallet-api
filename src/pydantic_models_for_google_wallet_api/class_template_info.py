@@ -227,20 +227,20 @@ class CardRowThreeItems(BaseModel):
 class CardRowTemplateInfo(BaseModel):
     oneItem: Optional[CardRowOneItem] = None
     """
-    Template for a row containing one item. Exactly one of "oneItem",
-    "twoItems", "threeItems" must be set.
+    Template for a row containing one item. Exactly one of "one_item",
+    "two_items", "three_items" must be set.
     """
 
     twoItems: Optional[CardRowTwoItems] = None
     """
-    Template for a row containing two items. Exactly one of "oneItem",
-    "twoItems", "threeItems" must be set.
+    Template for a row containing two items. Exactly one of "one_item",
+    "two_items", "three_items" must be set.
     """
 
     threeItems: Optional[CardRowThreeItems] = None
     """
-    Template for a row containing three items. Exactly one of "oneItem",
-    "twoItems", "threeItems" must be set.
+    Template for a row containing three items. Exactly one of "one_item",
+    "two_items", "three_items" must be set.
     """
 
 
@@ -310,12 +310,11 @@ class ListTemplateOverride(BaseModel):
 
     secondRowOption: Optional[FieldSelector] = None
     """
-    A reference to the field to be displayed in the second row.
-
-    This option is only displayed if there are not multiple user objects in a
-    group. If there is a group, the second row will always display a field
-    shared by all objects. To set this override, please set secondRowOption to
-    the FieldSelector of you choice.
+    A reference to the field to be displayed in the second row. This option is
+    only displayed if there are not multiple user objects in a group. If there
+    is a group, the second row will always display a field shared by all
+    objects. To set this override, please set secondRowOption to the
+    FieldSelector of you choice.
     """
 
     thirdRowOption: Annotated[

@@ -147,29 +147,20 @@ class PurchaseDetails(BaseModel):
 
     purchaseDateTime: Optional[str] = None
     """
-    The purchase date/time of the ticket.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    The purchase date/time of the ticket. This is an ISO 8601 extended format
+    date/time, with or without an offset. Time may be specified up to
+    nanosecond precision. Offsets may be specified with seconds precision (even
+    though offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. Without offset
+    information, some rich features may not be available.
     """
 
     accountId: Optional[str] = None
@@ -222,7 +213,7 @@ class TicketSeat(BaseModel):
 
     customFareClass: Optional[LocalizedString] = None
     """
-    A custom fare class to be used if no `fareClass` applies. Both `fareClass`
+    A custome fare class to be used if no `fareClass` applies. Both `fareClass`
     and `customFareClass` may not be set.
     """
 
@@ -235,7 +226,7 @@ class TicketSeat(BaseModel):
     seat: Optional[str] = None
     """
     The identifier of where the ticketed seat is located. Eg. "42". If there is
-    no specific identifier, use `seatAssignment` instead.
+    no specific identifier, use `seatAssigment` instead.
     """
 
     seatAssignment: Optional[LocalizedString] = None
@@ -288,17 +279,24 @@ class State(str, Enum):
 
 
 class ActivationStatus(BaseModel):
+    """
+    The activation status of the object. This field includes activation status
+    if valuable supports activation.
+    """
     state: State = State.UNKNOWN_STATE
 
 
 class DeviceContext(BaseModel):
+    """
+    Device context associated with the object.
+    """
     deviceToken: Optional[str] = None
     """
     If set, redemption information will only be returned to the given device
     upon activation of the object. This should not be used as a stable
     identifier to trace a user's device. It can change across different passes
     for the same device or even across different activations for the same
-    device. When setting this, callers must also set hasLinkedDevice on the
+    device. When setting this, callers must also set has_linked_device on the
     object being activated.
     """
 
@@ -312,7 +310,7 @@ class TicketLeg(BaseModel):
 
     originName: Optional[LocalizedString] = None
     """
-    The name of the origin station. This is required if `destinationName` is
+    The name of the origin station. This is required if `desinationName` is
     present or if `originStationCode` is not present.
     """
 
@@ -329,70 +327,50 @@ class TicketLeg(BaseModel):
     departureDateTime: Optional[str] = None
     """
     The date/time of departure. This is required if there is no validity time
-    interval set on the transit object.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    interval set on the transit object. This is an ISO 8601 extended format
+    date/time, with or without an offset. Time may be specified up to
+    nanosecond precision. Offsets may be specified with seconds precision (even
+    though offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    The portion of the date/time without the offset is considered the "local
-    date/time". This should be the local date/time at the origin station. For
-    example, if the departure occurs at the 20th hour of June 5th, 2018 at the
-    origin station, the local date/time portion should be
-    `2018-06-05T20:00:00`. If the local date/time at the origin station is 4
-    hours before UTC, an offset of `-04:00` may be appended.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. The portion of
+    the date/time without the offset is considered the "local date/time". This
+    should be the local date/time at the origin station. For example, if the
+    departure occurs at the 20th hour of June 5th, 2018 at the origin station,
+    the local date/time portion should be `2018-06-05T20:00:00`. If the local
+    date/time at the origin station is 4 hours before UTC, an offset of
+    `-04:00` may be appended. Without offset information, some rich features
+    may not be available.
     """
 
     arrivalDateTime: Optional[str] = None
     """
-    The date/time of arrival.
-
-    This is an ISO 8601 extended format date/time, with or without an offset.
-    Time may be specified up to nanosecond precision. Offsets may be specified
-    with seconds precision (even though offset seconds is not part of ISO
-    8601).
-
-    For example:
-
+    The date/time of arrival. This is an ISO 8601 extended format date/time,
+    with or without an offset. Time may be specified up to nanosecond
+    precision. Offsets may be specified with seconds precision (even though
+    offset seconds is not part of ISO 8601). For example:
     `1985-04-12T23:20:50.52Z` would be 20 minutes and 50.52 seconds after the
-    23rd hour of April 12th, 1985 in UTC.
-
-    `1985-04-12T19:20:50.52-04:00` would be 20 minutes and 50.52 seconds after
-    the 19th hour of April 12th, 1985, 4 hours before UTC (same instant in time
-    as the above example). If the event were in New York, this would be the
-    equivalent of Eastern Daylight Time (EDT). Remember that offset varies in
-    regions that observe Daylight Saving Time (or Summer Time), depending on
-    the time of the year.
-
+    23rd hour of April 12th, 1985 in UTC. `1985-04-12T19:20:50.52-04:00` would
+    be 20 minutes and 50.52 seconds after the 19th hour of April 12th, 1985, 4
+    hours before UTC (same instant in time as the above example). If the event
+    were in New York, this would be the equivalent of Eastern Daylight Time
+    (EDT). Remember that offset varies in regions that observe Daylight Saving
+    Time (or Summer Time), depending on the time of the year.
     `1985-04-12T19:20:50.52` would be 20 minutes and 50.52 seconds after the
-    19th hour of April 12th, 1985 with no offset information.
-
-    The portion of the date/time without the offset is considered the "local
-    date/time". This should be the local date/time at the origin station. For
-    example, if the departure occurs at the 20th hour of June 5th, 2018 at the
-    origin station, the local date/time portion should be
-    `2018-06-05T20:00:00`. If the local date/time at the origin station is 4
-    hours before UTC, an offset of `-04:00` may be appended.
-
-    Without offset information, some rich features may not be available.
+    19th hour of April 12th, 1985 with no offset information. The portion of
+    the date/time without the offset is considered the "local date/time". This
+    should be the local date/time at the destination station. For example, if
+    the event occurs at the 20th hour of June 5th, 2018 at the destination
+    station, the local date/time portion should be `2018-06-05T20:00:00`. If
+    the local date/time at the destination station is 4 hours before UTC, an
+    offset of `-04:00` may be appended. Without offset information, some rich
+    features may not be available.
     """
 
     fareName: Optional[LocalizedString] = None
@@ -403,7 +381,7 @@ class TicketLeg(BaseModel):
 
     carriage: Optional[str] = None
     """
-    The train or ship name/number that the passenger needs to board.
+    The train or ship name/number that the passsenger needs to board.
     """
 
     platform: Optional[str] = None
@@ -530,9 +508,9 @@ class TransitObject(BaseModel):
     """
     The background color for the card. If not set the dominant color of the
     hero image is used, and if no hero image is set, the dominant color of the
-    logo is used. The format is `#rrggbb` where `rrggbb` is a hex RGB triplet,
-    such as `#ffcc00`. You can also use the shorthand version of the RGB
-    triplet which is `#rgb`, such as `#fc0`.
+    logo is used. The format is #rrggbb where rrggbb is a hex RGB triplet, such
+    as `#ffcc00`. You can also use the shorthand version of the RGB triplet
+    which is #rgb, such as `#fc0`.
     """
 
     tripType: TripType
@@ -546,7 +524,7 @@ class TransitObject(BaseModel):
     """
     Required. The unique identifier for an object. This ID must be unique
     across all objects from an issuer. This value should follow the format
-    `issuer ID.identifier` where the former is issued by Google and latter is
+    issuer ID.identifier where the former is issued by Google and latter is
     chosen by you. The unique identifier should only include alphanumeric
     characters, '.', '_', or '-'.
     """
@@ -554,10 +532,9 @@ class TransitObject(BaseModel):
     classId: str
     """
     Required. The class associated with this object. The class must be of the
-    same type as this object, must already exist, and must be approved.
-
-    Class IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and latter is chosen by you.
+    same type as this object, must already exist, and must be approved. Class
+    IDs should follow the format issuer ID.identifier where the former is
+    issued by Google and latter is chosen by you.
     """
 
     version: Annotated[
@@ -629,9 +606,7 @@ class TransitObject(BaseModel):
     Indicates if notifications should explicitly be suppressed. If this field
     is set to true, regardless of the `messages` field, expiration
     notifications to the user will be suppressed. By default, this field is set
-    to false.
-
-    Currently, this can only be set for offers.
+    to false. Currently, this can only be set for offers.
     """
 
     infoModuleData: Optional[InfoModuleData] = None
@@ -709,21 +684,19 @@ class TransitObject(BaseModel):
 
     linkedObjectIds: list[str] = Field(default_factory=list)
     """
-    linkedObjectIds are a list of other objects such as event ticket, loyalty,
-    offer, generic, giftcard, transit and boarding pass that should be
+    linked_object_ids are a list of other objects such as event ticket,
+    loyalty, offer, generic, giftcard, transit and boarding pass that should be
     automatically attached to this transit object. If a user had saved this
-    transit card, then these linkedObjectIds would be automatically pushed to
+    transit card, then these linked_object_ids would be automatically pushed to
     the user's wallet (unless they turned off the setting to receive such
-    linked passes).
-
-    Make sure that objects present in linkedObjectIds are already inserted - if
-    not, calls would fail. Once linked, the linked objects cannot be unlinked.
-    You cannot link objects belonging to another issuer. There is a limit to
-    the number of objects that can be linked to a single object. After the
-    limit is reached, new linked objects in the call will be ignored silently.
-
-    Object IDs should follow the format `issuer ID.identifier` where the former
-    is issued by Google and the latter is chosen by you.
+    linked passes). Make sure that objects present in linked_object_ids are
+    already inserted - if not, calls would fail. Once linked, the linked
+    objects cannot be unlinked. You cannot link objects belonging to another
+    issuer. There is a limit to the number of objects that can be linked to a
+    single object. After the limit is reached, new linked objects in the call
+    will be ignored silently. Object IDs should follow the format issuer ID.
+    identifier where the former is issued by Google and the latter is chosen by
+    you.
     """
 
     notifyPreference: NotificationSettingsForUpdates = (
@@ -744,7 +717,8 @@ class TransitObject(BaseModel):
         max_length=10,
     )
     """
-    Optional value added module data. Maximum of ten on the object.
+    Optional value added module data. Maximum of fifteen on the object. For a
+    pass only fifteen will be displayed.
     """
 
     merchantLocations: list[MerchantLocation] = Field(

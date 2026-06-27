@@ -73,10 +73,9 @@ class GenericClass(BaseModel):
 
     Identifies which redemption issuers can redeem the pass over Smart Tap.
     Redemption issuers are identified by their issuer ID. Redemption issuers
-    must have at least one Smart Tap key configured.
-
-    The `enableSmartTap` and object level `smartTapRedemptionLevel` fields must
-    also be set up correctly in order for a pass to support Smart Tap.
+    must have at least one Smart Tap key configured. The `enableSmartTap` and
+    object level `smartTapRedemptionLevel` fields must also be set up correctly
+    in order for a pass to support Smart Tap.
     """
 
     securityAnimation: Optional[SecurityAnimation] = None
@@ -124,8 +123,8 @@ class GenericClass(BaseModel):
         default_factory=list,
     )
     """
-    Optional value added module data. Maximum of ten on the class. For a pass
-    only ten will be displayed, prioritizing those from the object.
+    Optional value added module data. Maximum of fifteen on the class. For a
+    pass only fifteen will be displayed, prioritizing those from the object.
     """
 
     merchantLocations: list[MerchantLocation] = Field(default_factory=list)

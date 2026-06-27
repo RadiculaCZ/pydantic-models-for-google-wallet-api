@@ -28,10 +28,9 @@ class Uri(BaseModel):
     description: Optional[str] = None
     """
     The URI's title appearing in the app as text. Recommended maximum is 20
-    characters to ensure full string is displayed on smaller screens.
-
-    Note that in some contexts this text is not used, such as when
-    `description` is part of an image.
+    characters to ensure full string is displayed on smaller screens. Note that
+    in some contexts this text is not used, such as when `description` is part
+    of an image.
     """
 
     localizedDescription: Optional[LocalizedString] = None
