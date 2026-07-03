@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 
-def discovery_schema(*names: str) -> Callable[[type], type]:
+def discovery_schema[T](*names: str) -> Callable[[T], T]:
     """
     Attach one or more Google API discovery schema names to a model class.
 
@@ -9,7 +9,7 @@ def discovery_schema(*names: str) -> Callable[[type], type]:
     glob-style patterns (for example ``*AddMessageResponse``).
     """
 
-    def decorator(cls: type) -> type:
+    def decorator(cls: T) -> T:
         setattr(cls, "__discovery_schemas__", tuple(names))
         return cls
 
