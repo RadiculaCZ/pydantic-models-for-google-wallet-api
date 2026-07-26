@@ -33,7 +33,7 @@ class GiftCardClass(BaseModel):
     kind: Annotated[
         Literal["walletobjects#giftCardClass"],
         deprecated("This item is deprecated!"),
-    ]
+    ] = "walletobjects#giftCardClass"
     """
     Identifies what kind of resource this is. Value: the fixed string
     `"walletobjects#giftCardClass"`.
