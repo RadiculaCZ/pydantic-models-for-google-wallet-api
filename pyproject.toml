@@ -1,6 +1,6 @@
 [project]
 name = "pydantic-models-for-google-wallet-api"
-version = "0.2.2"
+version = "0.2.3"
 description = "Pydantic models for Google Wallet API types"
 readme = "README.md"
 authors = [
