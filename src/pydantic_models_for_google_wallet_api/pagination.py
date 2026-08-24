@@ -1,6 +1,6 @@
 # https://developers.google.com/wallet/reference/rest/v1/Pagination
 
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel
 from typing_extensions import deprecated
@@ -23,7 +23,7 @@ class Pagination(BaseModel):
     Number of results returned in this page.
     """
 
-    nextPageToken: str
+    nextPageToken: Optional[str] = None
     """
     Page token to send to fetch the next page.
     """

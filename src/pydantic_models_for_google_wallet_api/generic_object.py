@@ -182,7 +182,7 @@ class GenericObject(BaseModel):
     Generic Object
     """
 
-    genericType: GenericType
+    genericType: GenericType = GenericType.GENERIC_TYPE_UNSPECIFIED
     """
     Specify which `GenericType` the card belongs to.
     """

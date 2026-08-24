@@ -6,7 +6,7 @@ from .uri import Uri
 
 
 class LinksModuleData(BaseModel):
-    uris: list[Uri]
+    uris: list[Uri] = []
     """
     The list of URIs.
     """

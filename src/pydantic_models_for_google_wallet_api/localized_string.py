@@ -43,7 +43,7 @@ class LocalizedString(BaseModel):
     `"walletobjects#localizedString"`.
     """
 
-    translatedValues: list[TranslatedString]
+    translatedValues: list[TranslatedString] = []
     """
     Contains the translations for the string.
     """
