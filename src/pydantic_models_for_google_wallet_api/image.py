@@ -57,7 +57,7 @@ class Image(BaseModel):
     contact support to use private images.
     """
 
-    contentDescription: LocalizedString
+    contentDescription: Optional[LocalizedString] = None
     """
     Description of the image used for accessibility.
     """
